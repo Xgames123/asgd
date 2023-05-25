@@ -83,7 +83,7 @@ void loop() {
   }
   if (Button == 0 && x < 600 && x > 400 && y < 600 && y > 400) {
     Serial.print("ButtonPressed");
-    x = 0; y = 0;
+    DISx = 0; DISy = 0;
   }
 
   Serial.println("sending data");
