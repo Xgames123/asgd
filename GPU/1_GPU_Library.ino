@@ -27,9 +27,6 @@ int gpu_read_command()
 {
   Serial.println("waiting on command...");
   byte command = com_readByte(3);
-  Serial.print("got command");
-  Serial.println(command);
-
   if(command == 0) //upload texture
   {
     Serial.println("Uploading texture");
@@ -39,11 +36,16 @@ int gpu_read_command()
     Serial.print("x");
     Serial.println(tex.Heigt);
     ActiveTexture = tex;
+    return;
   }
   if(command == 1) //draw texture
   {
     Serial.println("Draw Texture");
+    return;
   }
+
+  Serial.print("INVALID COMMAND ");
+  Serial.println(command);
   
 }
 
