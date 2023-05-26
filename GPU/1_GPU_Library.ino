@@ -25,7 +25,10 @@ void gpu_init()
 
 int gpu_read_command()
 {
+  Serial.println("waiting on command...");
   byte command = com_readByte(3);
+  Serial.print("got command");
+  Serial.println(command);
 
   if(command == 0) //upload texture
   {
@@ -39,6 +42,7 @@ int gpu_read_command()
   }
   if(command == 1) //draw texture
   {
+    Serial.println("Draw Texture");
   }
   
 }
