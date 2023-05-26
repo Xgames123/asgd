@@ -43,7 +43,6 @@ void com_waitForClockVal(bool value)
     //Serial.println(value);
    if(digitalRead(ClockPin) == value)
    {
-    delay(1);
     break;
    }
     
