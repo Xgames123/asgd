@@ -31,6 +31,9 @@ void loop() {
   //Serial.println(com_readByte());
 
   draw_writeBuff();
+
+
+  gpu_read_command();
 }
 
 
