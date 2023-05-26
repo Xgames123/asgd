@@ -14,7 +14,7 @@ byte com_readByte(int bitCount=8)
 {
   //Serial.print("data: ");
   byte output = 0;
-  for(int i=0; i < 8-bitCount; i++)
+  for(int i=0; i < bitCount; i++)
   {
     bool data = com_readBit();
     //Serial.print(data);
@@ -43,6 +43,7 @@ void com_waitForClockVal(bool value)
     //Serial.println(value);
    if(digitalRead(ClockPin) == value)
    {
+    delay(1);
     break;
    }
     

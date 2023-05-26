@@ -6,8 +6,8 @@
 
 struct GTexture{
 
-  int Width;
-  int Heigt;
+  byte Width;
+  byte Heigt;
 
   bool Data[];
 };

@@ -1,6 +1,6 @@
 const int ComPin = 2;
 const int ClockPin = 3;
-const int ClockDelay = 10;
+const int ClockDelay = 30;
 
 void com_init()
 {
@@ -22,10 +22,10 @@ void com_sendBit(bool value)
   delay(ClockDelay);
   
 }
-void com_sendByte(byte value, byte size=8)
+void com_sendByte(byte value, byte bitsize=8)
 {
   //Serial.print("byte: ");
-  for (int i=0; i < 8-size; i++)
+  for (int i=0; i < bitsize; i++)
   {
     bool data = (value >> i) & 0x01;
     //Serial.print(data);
