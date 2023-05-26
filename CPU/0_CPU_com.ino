@@ -8,8 +8,6 @@ void com_init()
   pinMode(ComPin, OUTPUT);
   digitalWrite(ClockPin, LOW);
 
-  //delay so you can more easily get them in sync
-  delay(1000);
 }
 
 

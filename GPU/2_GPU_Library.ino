@@ -63,6 +63,11 @@ void gpu_read_command()
     byte x = com_readByte(3);
     byte y = com_readByte(3);
 
+    Serial.print("Coords: ");
+    Serial.print(x);
+    Serial.print(" ");
+    Serial.println(y);
+
     gpu_draw_texture(ActiveTexture, x, y);
     return;
   }
@@ -73,11 +78,15 @@ void gpu_read_command()
     return;
   }
   if (command == 3){ //draw point
-    Serial.println("Draw point");
+    Serial.print("Draw point: ");
     
     byte x = com_readByte(3);
     byte y = com_readByte(3);
     
+    Serial.print(x);
+    Serial.print(" ");
+    Serial.println(y);
+
     draw_point(x, y, HIGH);
     
     return;

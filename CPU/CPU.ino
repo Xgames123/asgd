@@ -15,12 +15,12 @@ void setup() {
   Serial.begin(9600);
   gpu_init();
  
-  Serial.println("uploading texture 2x2");
+  Serial.println("uploading player texture");
 
-  //struct GTexture* tex = gpu_createTex(4, 2, 
-  //".xx."
-  //"xxxx");
-  //gpu_uploadTex(tex);
+  struct GTexture* tex = gpu_createTex(4, 2, 
+  ".xx."
+  "xxxx");
+  gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
   gpu_clear();

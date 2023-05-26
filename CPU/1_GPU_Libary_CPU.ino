@@ -9,6 +9,7 @@ struct GTexture
 };
 
 void gpu_init(){
+ com_init();
  Serial.println("initializing gpu");
  pinMode(ResetGpu_pin, OUTPUT);
  
@@ -17,13 +18,13 @@ void gpu_init(){
  digitalWrite(ResetGpu_pin, LOW);
  delay(10);
  digitalWrite(ResetGpu_pin, HIGH);
- delay(3000);
+ delay(4000);
  Serial.println("gpu initialized");
 
- com_init();
+
 }
 
-struct GTexture *gpu_createTex(byte w, byte h, const char str[])
+struct GTexture *gpu_createTex(byte w, byte h, char* str)
 {
   struct GTexture *tex;
   tex = (GTexture*)malloc(sizeof(struct GTexture));

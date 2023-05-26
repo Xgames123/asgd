@@ -17,8 +17,8 @@ void loop() {
 
   gpu_read_command();
   
-  //draw_writeBuff();
-  draw_BuffToSerial();
+  draw_writeBuff();
+  //draw_BuffToSerial();
 }
 
 
