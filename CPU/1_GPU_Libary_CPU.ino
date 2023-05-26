@@ -36,7 +36,7 @@ struct GTexture *gpu_createTex(byte w, byte h)
 
 void gpu_uploadTex(struct GTexture* tex)
 {
-  com_sentByte(0, 3); //Command 0 upload texture()
+  com_sendByte(0, 3); //Command 0 upload texture()
   com_sendByte(tex->Width, 3);
   com_sendByte(tex->Height, 3);
   for (int i=0; i<tex->Width*tex->Height; i++){
