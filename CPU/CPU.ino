@@ -24,7 +24,6 @@ void loop() {
   int x = analogRead(JoyXPin);
   int y = analogRead(JoyYPin);
   int Button = analogRead(JoyButtonPin);
-  Serial.println("");
 
 
   if (y > 700 && x < 200) {
