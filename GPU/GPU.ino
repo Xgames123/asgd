@@ -15,9 +15,13 @@ void setup() {
 
 void loop() {
 
-  gpu_read_command();
-  
   draw_writeBuff();
+
+  if (gpu_buffer_filled(20)){
+    gpu_read_all_commands();
+  }
+
+  
   //draw_BuffToSerial();
 }
 

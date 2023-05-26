@@ -2,12 +2,27 @@ const int ComPin = 2;
 const int ClockPin = A5;
 const int ClockDelay = 10;
 
+bool Buffer[100];
+int Index=0;
+
 void com_init()
 {
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
+
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockRise, RISING);
 }
 
+
+void onClockRise(){
+  bool bit = digitalRead(ComPin);
+  Buffer[Index] = bit;
+  Index++;
+  if(Index >= 100){
+    Serial.println("RESIVE BUFFER OVERFLOW");
+    Index = 0;
+  }
+}
 
 
 byte com_readByte(int bitCount=8)
@@ -26,25 +41,24 @@ byte com_readByte(int bitCount=8)
 }
 
 
-
-bool com_readBit()
-{ 
- com_waitForClockVal(HIGH);
- bool value = digitalRead(ComPin);
- com_waitForClockVal(LOW);
- return value;
+bool com_hasBits(int count=1){
+  if (Index >= count){
+    return true;
+  }
+  return false;
 }
 
 
-void com_waitForClockVal(bool value)
-{
-  while(true)
+bool com_readBit()
+{ 
+  if(!com_hasBits())
   {
-    //Serial.println(value);
-   if(digitalRead(ClockPin) == value)
-   {
-    break;
-   }
-    
+     Serial.println("NOTE: waiting on bit");
+     while(!com_hasBits()){
+       
+     }
   }
+
+  Index--;
+  return Buffer[Index];
 }

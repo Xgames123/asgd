@@ -23,17 +23,31 @@ void gpu_init()
   com_init();
 }
 
+bool gpu_buffer_filled(int bits){
+  
+  return com_hasBits(bits);
+}
 
 
-void gpu_read_command()
+void gpu_read_all_commands(){
+  
+  while(true){
+    if (!com_hasBits(3)){
+      return;
+    }
+    gpu_read_command();
+  }
+
+}
+
+
+bool gpu_read_command()
 {
-  if (digitalRead(ClockPin) != HIGH)
-  {
+  
+  if(!com_hasBits(3)){
     return;
   }
 
-
-  Serial.println("waiting on command...");
   byte command = com_readByte(3);
   if(command == 0) //upload texture
   {
