@@ -51,3 +51,18 @@ void gpu_uploadTex(struct GTexture* tex)
     com_sendBit(tex->Data[i]);
   }
 }
+
+
+void gpu_clear()
+{
+  com_sendByte(2, 3); //Command 2 clear()
+}
+
+void gpu_drawTex(byte x, byte y)
+{
+  com_sendByte(1, 3); //Command 1 draw texture()
+  com_sendByte(x, 3);
+  com_sendByte(y, 3);
+}
+
+

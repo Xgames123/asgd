@@ -18,6 +18,12 @@ void setup() {
   struct GTexture* tex = gpu_createTex(2, 2);
   gpu_uploadTex(tex);
   
+  Serial.println("clearing screen");
+  gpu_clear();
+
+  Serial.println("drawing texture at x: 0 y: 0");
+  gpu_drawTex(0, 0);
+
 }
 
 void loop() {
