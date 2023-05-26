@@ -1,6 +1,6 @@
 const int ComPin = 2;
 const int ClockPin = 3;
-const int ClockDelay = 30;
+const int ClockDelay = 10;
 
 void com_init()
 {
