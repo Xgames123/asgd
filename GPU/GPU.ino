@@ -14,26 +14,9 @@ void setup() {
 }
 
 void loop() {
-  //TestLeds();
-
-  draw_clear(LOW);
-
-  draw_point(3, 3, HIGH);
-  draw_point(4, 4, HIGH);
-  
-  //Serial.println("tick");
-  //SetPixel(0, 0, HIGH);
-  //Serial.println("tick2");
-
-  //Serial.println(com_readBit());
-  
-  //Serial.print("data: ");
-  //Serial.println(com_readByte());
-
-  draw_writeBuff();
-
 
   gpu_read_command();
+  draw_writeBuff();
 }
 
 
