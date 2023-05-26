@@ -23,7 +23,7 @@ void gpu_init(){
  com_init();
 }
 
-struct GTexture *gpu_createTex(byte w, byte h, char* str)
+struct GTexture *gpu_createTex(byte w, byte h, const char str[])
 {
   struct GTexture *tex;
   tex = (GTexture*)malloc(sizeof(struct GTexture));
@@ -67,6 +67,12 @@ void gpu_clear()
 void gpu_drawTex(byte x, byte y)
 {
   com_sendByte(1, 3); //Command 1 draw texture()
+  com_sendByte(x, 3);
+  com_sendByte(y, 3);
+}
+
+void gpu_drawPoint(byte x, byte y){
+  com_sendByte(3, 3); //Command 3 draw point()
   com_sendByte(x, 3);
   com_sendByte(y, 3);
 }

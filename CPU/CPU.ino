@@ -1,3 +1,5 @@
+//#define tex(a) 
+
 const int JoyXPin = A0;
 const int JoyYPin = A1;
 const int JoyButtonPin = A5;
@@ -15,10 +17,10 @@ void setup() {
  
   Serial.println("uploading texture 2x2");
 
-  struct GTexture* tex = gpu_createTex(4, 2, 
-  ".xx."
-  "xxxx");
-  gpu_uploadTex(tex);
+  //struct GTexture* tex = gpu_createTex(4, 2, 
+  //".xx."
+  //"xxxx");
+  //gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
   gpu_clear();
@@ -115,7 +117,6 @@ void on_input(){
   Serial.println(DISx);
   Serial.print("y: ");
   Serial.println(DISy);
-  gpu_clear();
-  gpu_drawTex(DISx, DISy);
+  gpu_drawPoint(DISx, DISy);
 }
 
