@@ -18,22 +18,7 @@ void loop() {
   gpu_read_command();
   
   //draw_writeBuff();
- for (int y=0; y < displayH; y++)
- {
-  for (int x=0; x < displayW; x++)
-  {
-    bool pixel = displayBuff[y*displayW+x];
-    if(pixel){
- Serial.print('x');
-    }else{
-      Serial.print('.');
-    }
-   
-
-   
-  }
-  Serial.println();
- }
+  draw_BuffToSerial();
 }
 
 
