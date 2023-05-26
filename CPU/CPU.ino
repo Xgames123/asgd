@@ -25,8 +25,8 @@ void setup() {
   Serial.println("clearing screen");
   gpu_clear();
 
-  Serial.println("drawing texture at x: 0 y: 0");
-  gpu_drawTex(0, 0);
+  //Serial.println("drawing texture at x: 0 y: 0");
+  //gpu_drawTex(0, 0);
 
   gpu_drawPoint(0, 0);
 }
@@ -107,6 +107,9 @@ void loop() {
   if (Button == 0 && x < 600 && x > 400 && y < 600 && y > 400) {
     Serial.print("ButtonPressed");
     DISx = 0; DISy = 0;
+    gpu_clear();
+    testLeds();
+    gpu_clear();
     on_input();
   }
 
@@ -119,5 +122,17 @@ void on_input(){
   Serial.print("  y: ");
   Serial.println(DISy);
   gpu_drawPoint(DISx, DISy);
+}
+
+void testLeds(){
+  gpu_clear();
+  for (int x=0; x < 8; x++)
+  {
+    for (int y=0; y < 8; y++)
+    {
+      gpu_drawPoint(x, y);
+    } 
+  }
+  
 }
 
