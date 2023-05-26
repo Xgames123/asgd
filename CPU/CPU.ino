@@ -28,6 +28,7 @@ void setup() {
   Serial.println("drawing texture at x: 0 y: 0");
   gpu_drawTex(0, 0);
 
+  gpu_drawPoint(0, 0);
 }
 
 void loop() {
@@ -114,8 +115,8 @@ void loop() {
 
 void on_input(){
   Serial.print("x: ");
-  Serial.println(DISx);
-  Serial.print("y: ");
+  Serial.print(DISx);
+  Serial.print("  y: ");
   Serial.println(DISy);
   gpu_drawPoint(DISx, DISy);
 }
