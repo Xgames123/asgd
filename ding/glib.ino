@@ -2,10 +2,10 @@ const int ResetGpu_pin = 4;
 
 struct GTexture
 {
-  int Width;
-  int Height;
+  byte Width;
+  byte Height;
 
-  bool Data[]; 
+  bool* Data; 
 };
 
 void gpu_init(){
@@ -21,12 +21,24 @@ void gpu_init(){
  com_init();
 }
 
-
-void gpu_uploadTex(struct GTexture tex)
+struct GTexture *gpu_createTex(byte w, byte h)
 {
-  com_sendByte(tex.Width, 3);
-  com_sendByte(tex.Height, 3);
-  for (int i=0; i<tex.Width*tex.Height; i++){
-    com_sendBit(tex.Data[i]);
+  bool* data = malloc(sizeof(bool)*(w*h));
+  
+  struct GTexture *tex;
+  tex = malloc(sizeof(struct GTexture));
+  tex->Width = w;
+  tex->Height = h;
+  tex->Data = data;
+  return tex;
+}
+
+
+void gpu_uploadTex(struct GTexture* tex)
+{
+  com_sendByte(tex->Width, 3);
+  com_sendByte(tex->Height, 3);
+  for (int i=0; i<tex->Width*tex->Height; i++){
+    com_sendBit(tex->Data[i]);
   }
 }

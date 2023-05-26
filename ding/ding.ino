@@ -15,12 +15,7 @@ void setup() {
  
   Serial.println("uploading texture 2x2");
 
-  GTexture tex = new GTexture();
-  tex.With= 2;
-  tex.Heigh= 2;
-  tex.Data = bool[] {false, true, false, true}
-  }
-  
+  struct GTexture* tex = gpu_createTex(2, 2);
   gpu_uploadTex(tex);
   
 }
