@@ -23,13 +23,24 @@ void gpu_init(){
  com_init();
 }
 
-struct GTexture *gpu_createTex(byte w, byte h)
+struct GTexture *gpu_createTex(byte w, byte h, char* str)
 {
   struct GTexture *tex;
   tex = (GTexture*)malloc(sizeof(struct GTexture));
   tex->Width = w;
   tex->Height = h;
   tex->Data = (bool*)malloc(sizeof(bool)*w*h);
+ 
+  for (int i=0; i < sizeof(str); i++){
+   if (str[i] == 'x'){
+     tex->Data[i] = HIGH;
+   }
+   if (str[i] == '.'){
+     tex->Data[i] = LOW;
+   }
+
+  }
+
   return tex;
 }
 

@@ -15,7 +15,9 @@ void setup() {
  
   Serial.println("uploading texture 2x2");
 
-  struct GTexture* tex = gpu_createTex(4, 2);
+  struct GTexture* tex = gpu_createTex(4, 2, 
+  ".xx."
+  "xxxx");
   gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
@@ -102,12 +104,17 @@ void loop() {
   if (Button == 0 && x < 600 && x > 400 && y < 600 && y > 400) {
     Serial.print("ButtonPressed");
     DISx = 0; DISy = 0;
+    on_input();
   }
 
 
 }
 
 void on_input(){
+  Serial.print("x: ");
+  Serial.println(DISx);
+  Serial.print("y: ");
+  Serial.println(DISy);
   gpu_clear();
   gpu_drawTex(DISx, DISy);
 }
