@@ -26,6 +26,12 @@ void gpu_init()
 
 void gpu_read_command()
 {
+  if (digitalRead(ClockPin) != HIGH)
+  {
+    return;
+  }
+
+
   Serial.println("waiting on command...");
   byte command = com_readByte(3);
   if(command == 0) //upload texture
