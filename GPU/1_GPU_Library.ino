@@ -70,4 +70,5 @@ struct GTexture* gpu_read_texture()
     tex->Data[i] = com_readBit();
   }
 
+  return tex;
 }
