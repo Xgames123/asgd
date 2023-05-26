@@ -23,7 +23,7 @@ void gpu_init()
 
 
 
-int gpu_read_command()
+void gpu_read_command()
 {
   Serial.println("waiting on command...");
   byte command = com_readByte(3);
