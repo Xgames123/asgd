@@ -12,9 +12,9 @@ void gpu_init(){
  Serial.println("initializing gpu");
  pinMode(ResetGpu_pin, OUTPUT);
  
- digitalWrite(ResetGpu_pin, LOW);
- delay(100);
  digitalWrite(ResetGpu_pin, HIGH);
+ delay(100);
+ digitalWrite(ResetGpu_pin, LOW);
  delay(3000);
  Serial.println("gpu initialized");
 
