@@ -15,7 +15,7 @@ void setup() {
  
   Serial.println("uploading texture 2x2");
 
-  struct GTexture* tex = gpu_createTex(2, 2);
+  struct GTexture* tex = gpu_createTex(4, 2);
   gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
@@ -38,6 +38,7 @@ void loop() {
     if (DISx > 0 && DISy > 0) {
       DISx += -1;
       DISy += -1;
+      on_input();
     }
   }
   if (y > 200 && y < 700 && x < 200) {
@@ -53,6 +54,7 @@ void loop() {
     if (DISx < 7 && DISy > 0) {
       DISx += 1;
       DISy += -1;
+      on_input();
     }
   }
   if (x > 200 && x < 700 && y < 200) {
@@ -60,6 +62,7 @@ void loop() {
     Direction = 7;
     if (DISx < 7) {
       DISx += 1;
+      on_input();
     }
   }
   if (y < 200 && x > 700) {
@@ -68,6 +71,7 @@ void loop() {
     if (DISx < 7 && DISy < 7) {
       DISx += 1;
       DISy += 1;
+      on_input();
     }
   }
   if (y > 200 && y < 700 && x > 700) {
@@ -75,6 +79,7 @@ void loop() {
     Direction = 5;
     if (DISy < 7) {
       DISy += 1;
+      on_input();
     }
   }
   if (y > 700 && x > 700) {
@@ -83,6 +88,7 @@ void loop() {
     if (DISx > 0 && DISy < 7) {
       DISx += -1;
       DISy += 1;
+      on_input();
     }
   }
   if (x > 200 && x < 700 && y > 700) {
@@ -90,6 +96,7 @@ void loop() {
     Direction = 3;
     if (DISx > 0) {
       DISx += -1;
+      on_input();
     }
   }
   if (Button == 0 && x < 600 && x > 400 && y < 600 && y > 400) {
@@ -99,3 +106,9 @@ void loop() {
 
 
 }
+
+void on_input(){
+  gpu_clear();
+  gpu_drawTex(DISx, DISy);
+}
+

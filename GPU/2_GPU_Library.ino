@@ -36,9 +36,9 @@ void gpu_read_command()
   byte command = com_readByte(3);
   if(command == 0) //upload texture
   {
-    Serial.println("Uploading texture");
+    Serial.println("Downloading texture");
     GTexture* tex = gpu_read_texture();
-    Serial.print("Done uploading texture ");
+    Serial.print("Done downloading texture ");
     Serial.print(tex->Width);
     Serial.print("x");
     Serial.println(tex->Heigt);
@@ -100,11 +100,6 @@ struct GTexture* gpu_read_texture()
 {
   byte w = com_readByte(3);
   byte h = com_readByte(3);
-
-  Serial.print("tex w: ");
-  Serial.print(w);
-  Serial.print(" h: ");
-  Serial.println(h);
 
   
   struct GTexture* tex = (struct GTexture*)malloc(sizeof(struct GTexture));

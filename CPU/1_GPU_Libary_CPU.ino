@@ -39,11 +39,6 @@ void gpu_uploadTex(struct GTexture* tex)
   byte w = tex->Width;
   byte h = tex->Height;
 
-  Serial.print("tex w: ");
-  Serial.print(w);
-  Serial.print(" h: ");
-  Serial.println(h);
-
   com_sendByte(0, 3); //Command 0 upload texture()
   com_sendByte(w, 3);
   com_sendByte(h, 3);
