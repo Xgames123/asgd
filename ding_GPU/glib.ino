@@ -31,7 +31,10 @@ int gpu_read_command()
   {
     Serial.println("Uploading texture");
     GTexture tex = gpu_read_texture();
-    Serial.println("Done uploading texture "+tex.Width+ "x"+ tex.Heigt + "");
+    Serial.print("Done uploading texture ");
+    Serial.print(tex.Width);
+    Serial.print("x");
+    Serial.println(tex.Heigt);
     ActiveTexture = tex;
   }
   if(command == 1) //draw texture
@@ -44,7 +47,7 @@ struct GTexture gpu_read_texture()
 {
   byte w = com_readByte(3);
   byte h = com_readByte(3);
-  bool data[] = bool[w*h];
+  bool data[w*h];
   for (int i=0; i < w*h; i++)
   {
     data[i] = com_readBit();

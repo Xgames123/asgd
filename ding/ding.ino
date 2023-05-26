@@ -10,8 +10,19 @@ void setup() {
   pinMode(JoyXPin, INPUT);
   pinMode(JoyYPin, INPUT);
   //com_init();
-  gpu_init();
   Serial.begin(9600);
+  gpu_init();
+ 
+  Serial.println("uploading texture 2x2");
+
+  GTexture tex = new GTexture();
+  tex.With= 2;
+  tex.Heigh= 2;
+  tex.Data = bool[] {false, true, false, true}
+  }
+  
+  gpu_uploadTex(tex);
+  
 }
 
 void loop() {
@@ -86,6 +97,5 @@ void loop() {
     DISx = 0; DISy = 0;
   }
 
-  Serial.println("sending data");
-  com_sendByte(8);
+
 }
