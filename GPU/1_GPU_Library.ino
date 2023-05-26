@@ -9,10 +9,10 @@ struct GTexture{
   byte Width;
   byte Heigt;
 
-  bool Data[];
+  bool* Data;
 };
 
-GTexture ActiveTexture;
+GTexture* ActiveTexture;
 
 
 
@@ -30,11 +30,11 @@ void gpu_read_command()
   if(command == 0) //upload texture
   {
     Serial.println("Uploading texture");
-    GTexture tex = gpu_read_texture();
+    GTexture* tex = gpu_read_texture();
     Serial.print("Done uploading texture ");
-    Serial.print(tex.Width);
+    Serial.print(tex->Width);
     Serial.print("x");
-    Serial.println(tex.Heigt);
+    Serial.println(tex->Heigt);
     ActiveTexture = tex;
     return;
   }
@@ -49,7 +49,7 @@ void gpu_read_command()
   
 }
 
-struct GTexture gpu_read_texture()
+struct GTexture* gpu_read_texture()
 {
   byte w = com_readByte(3);
   byte h = com_readByte(3);
@@ -58,12 +58,16 @@ struct GTexture gpu_read_texture()
   Serial.print(w);
   Serial.print(" h: ");
   Serial.println(h);
+
   
-  bool data[w*h];
+  struct GTexture* tex = (struct GTexture*)malloc(sizeof(struct GTexture));
+  tex->Width = w;
+  tex->Heigt = h;
+  tex->Data = (bool*)malloc(sizeof(bool)*w*h);
+  
   for (int i=0; i < w*h; i++)
   {
-    data[i] = com_readBit();
+    tex->Data[i] = com_readBit();
   }
-  
-  
+
 }
