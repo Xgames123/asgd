@@ -5,12 +5,10 @@ void setup() {
 
   draw_init();
 
-  
-  
   Serial.begin(9600);
 
   
-  com_init();
+  gpu_init();
 
   //draw_writePixel(0, 0, HIGH);
 }
