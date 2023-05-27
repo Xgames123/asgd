@@ -1,0 +1,10 @@
+player
+.xx.
+xxxx
+
+
+level_test
+x...x...
+x.xxxxx.
+x.....x.
+xxx.xxxx

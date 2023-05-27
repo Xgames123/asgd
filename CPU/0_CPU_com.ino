@@ -1,7 +1,7 @@
 const int ComPin = 2;
 const int ClockPin = 3;
 
-const float ClockSpeed = 100; // bits/second
+const float ClockSpeed = 100; // bits per second(bps)
 
 const int ClockDelay = (int)(1000.0/ClockSpeed); //Amount of delay between pulsing the clock
 
@@ -13,6 +13,9 @@ void com_init()
   pinMode(ComPin, OUTPUT);
   digitalWrite(ClockPin, LOW);
 
+  Serial.print("clock speed: ");
+  Serial.print(ClockSpeed);
+  Serial.print(" bps");
 }
 
 void com_tickClock(){
