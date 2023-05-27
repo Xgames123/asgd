@@ -1,6 +1,11 @@
 const int ComPin = 2;
 const int ClockPin = 3;
-const int ClockDelay = 10;
+
+const float ClockSpeed = 100; // bits/second
+
+const int ClockDelay = (int)(1000.0/ClockSpeed); //Amount of delay between pulsing the clock
+
+bool ClockValue = LOW;
 
 void com_init()
 {
@@ -10,15 +15,17 @@ void com_init()
 
 }
 
+void com_tickClock(){
+  ClockValue = !ClockValue;
+  digitalWrite(ClockPin, ClockValue);
+}
+
 
 void com_sendBit(bool value)
 {
   digitalWrite(ComPin, value);
-  digitalWrite(ClockPin, HIGH);
+  com_tickClock();
   delay(ClockDelay);
-  digitalWrite(ClockPin, LOW);
-  delay(ClockDelay);
-  
 }
 void com_sendByte(byte value, byte bitsize=8)
 {

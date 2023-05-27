@@ -10,11 +10,12 @@ void com_init()
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockRise, RISING);
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, RISING);
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, FALLING);
 }
 
 
-void onClockRise(){
+void onClock(){
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
   Index++;
