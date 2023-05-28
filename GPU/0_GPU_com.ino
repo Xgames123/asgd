@@ -61,7 +61,8 @@ bool com_readBit()
   {
      Serial.println("NOTE: waiting on bit");
      while(!com_hasBits(1)){
-       
+      Serial.println("NOTE: WAITING ON BIT");
+      delay(20);
      }
   }
 
