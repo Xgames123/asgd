@@ -4,8 +4,6 @@ const int ClockPin = 2;
 bool Buffer[100];
 int Index=0;
 
-unsigned long lastClockPulse;
-
 void com_init()
 {
   pinMode(ClockPin, INPUT);
@@ -15,13 +13,20 @@ void com_init()
   attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, FALLING);
 }
 
+void onClockFall(){
+  Serial.println(0);
+  onClock();
+}
+void onClockRise(){
+  Serial.println(1);
+  onClock();
+}
+
+
 
 void onClock(){
  
-  unsigned long time = micros();
-  Serial.print("clock: ");
-  Serial.println(time-lastClockPulse);
-  lastClockPulse = time;
+  
 
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
