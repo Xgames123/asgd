@@ -4,29 +4,20 @@ const int ClockPin = 2;
 bool Buffer[100];
 int Index=0;
 
+bool ClockValue = LOW;
+
 void com_init()
 {
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockRise, RISING);
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockFall, FALLING);
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, CHANGE);
 }
-
-void onClockFall(){
-  Serial.println(0);
-  onClock();
-}
-void onClockRise(){
-  Serial.println(1);
-  onClock();
-}
-
-
 
 void onClock(){
  
-  
+  Serial.println(ClockValue);
+  ClockValue = !ClockValue;
 
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
