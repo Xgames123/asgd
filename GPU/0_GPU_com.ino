@@ -14,7 +14,7 @@ void com_init()
 
 
 void onClock(){
-  Serial.println("clock");
+  Serial.println(micros());
   
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;

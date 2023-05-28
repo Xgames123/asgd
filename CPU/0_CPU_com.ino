@@ -1,4 +1,4 @@
-const int ComPin = A5;
+const int ComPin = 3;
 const int ClockPin = 2;
 
 const float ClockSpeed = 100; // bits per second(bps)
