@@ -16,14 +16,14 @@ void com_init()
 
 void onClock(){
  
-  Serial.println(ClockValue);
+  //Serial.println(ClockValue);
   ClockValue = !ClockValue;
 
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
   Index++;
   if(Index >= sizeof(Buffer)/sizeof(bool)){
-    Serial.println("TOO MUCH DAT IN DATABUFFER (OVERFLOW)");
+    Serial.println("TOO MUCH DAT IN DATBUFFER (OVERFLOW)");
     Index = 0;
   }
 }
@@ -64,5 +64,9 @@ bool com_readBit()
   }
 
   Index--;
-  return Buffer[Index];
+  bool bit = Buffer[Index];
+
+  Serial.println(bit);
+
+  return bit;
 }

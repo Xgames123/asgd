@@ -21,7 +21,7 @@ void com_init()
 void com_tickClock(){
   ClockValue = !ClockValue;
   digitalWrite(ClockPin, ClockValue);
-  Serial.println(ClockValue);
+  //Serial.println(ClockValue);
 }
 
 
@@ -29,6 +29,7 @@ void com_sendBit(bool value)
 {
   digitalWrite(ComPin, value);
   com_tickClock();
+  Serial.println(value);
   delay(ClockDelay);
 }
 void com_sendByte(byte value, byte bitsize=8)
