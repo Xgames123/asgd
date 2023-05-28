@@ -19,7 +19,7 @@ foreach($line in Get-Content .\textures.txt) {
 		
 		if ($trimmed == ""){
 			
-			$global_code+="GTexture* tex_"+&current_tex_name+";\n"
+			$global_code+="GTexture* tex_$current_tex_name;\n"
 			
 			$function_code+=$"tex_&(current_tex_name) = gpu_createTex($(current_tex_w), $(current_tex_h));\n"
 			for ($i = 0; $i < $current_tex_data.Count; $i++){
