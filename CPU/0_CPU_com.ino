@@ -23,9 +23,9 @@ void com_tickClock(){
   ClockValue = !ClockValue;
   digitalWrite(ClockPin, ClockValue);
 
-  if(LOG_CLOCK){
+  #ifdef LOG_CLOCK
    Serial.println(ClockValue);
-  }
+  #endif
 
 }
 
