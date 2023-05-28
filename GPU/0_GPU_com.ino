@@ -9,8 +9,8 @@ void com_init()
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, RISING);
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, FALLING);
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockRise, RISING);
+  attachInterrupt(digitalPinToInterrupt(ClockPin), onClockFall, FALLING);
 }
 
 void onClockFall(){

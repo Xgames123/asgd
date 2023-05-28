@@ -21,6 +21,7 @@ void com_init()
 void com_tickClock(){
   ClockValue = !ClockValue;
   digitalWrite(ClockPin, ClockValue);
+  Serial.println(ClockValue);
 }
 
 
