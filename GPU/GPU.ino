@@ -13,13 +13,20 @@ void setup() {
   //draw_writePixel(0, 0, HIGH);
 }
 
+int lastLoggedBufferSize = -1;
+
 void loop() {
 
   draw_writeBuff();
 
   #ifdef LOG_BUFSIZE
-  Serial.print("BufferSize: ");
-  Serial.println(gpu_buffer_size());
+  int buffSize = gpu_buffer_size();
+  if(lastLoggedBufferSize != buffSize){
+    Serial.print("BufferSize: ");
+    Serial.println(buffSize);
+    lastLoggedBufferSize = buffSize;
+  }
+  
   #endif
   if (gpu_buffer_filled(10)){
     Serial.print("started executing commands. buffer size: ");

@@ -1,4 +1,4 @@
-#define LOG_CLOCK false
+//#define LOG_CLOCK
 const int ComPin = 3;
 const int ClockPin = 2;
 

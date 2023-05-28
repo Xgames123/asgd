@@ -64,12 +64,15 @@ bool com_readBit()
 { 
   if(!com_hasBits(1))
   {
+    #ifdef LOG_WAITING_ON_BIT
+    Serial.println("STARTED WAITING ON BIT");
+    #endif
      while(!com_hasBits(1)){
-      #ifdef LOG_WAITING_ON_BIT
-      Serial.println("WAITING ON BIT");
-      #endif
-      delay(20);
+      
      }
+    #ifdef LOG_WAITING_ON_BIT
+    Serial.println("ENDED WAITING ON BIT");
+    #endif
   }
 
   Index--;
