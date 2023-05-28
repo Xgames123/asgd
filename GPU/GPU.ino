@@ -1,4 +1,4 @@
-
+#define LOG_BUFSIZE
 
 int i = 0;
 void setup() {
@@ -17,8 +17,10 @@ void loop() {
 
   draw_writeBuff();
 
-
+  #ifdef LOG_BUFSIZE
+  Serial.print("BufferSize: ");
   Serial.println(gpu_buffer_size());
+  #endif
   if (gpu_buffer_filled(10)){
     Serial.print("started executing commands. buffer size: ");
     Serial.println(gpu_buffer_size());
@@ -27,6 +29,7 @@ void loop() {
 
   
   //draw_BuffToSerial();
+  delay(10);
 }
 
 

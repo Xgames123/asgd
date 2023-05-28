@@ -1,3 +1,5 @@
+//#define LOG_CLOCK
+#define LOG_WAITING_ON_BIT
 const int ComPin = A5;
 const int ClockPin = 2;
 
@@ -27,7 +29,10 @@ void onClock(){
     Index = 0;
   }
 
-  Serial.println(bit);
+#ifdef LOG_CLOCK
+   Serial.println(bit);
+#endif
+ 
 }
 
 
@@ -59,9 +64,10 @@ bool com_readBit()
 { 
   if(!com_hasBits(1))
   {
-     Serial.println("NOTE: waiting on bit");
      while(!com_hasBits(1)){
-      Serial.println("NOTE: WAITING ON BIT");
+      #ifdef LOG_WAITING_ON_BIT
+      Serial.println("WAITING ON BIT");
+      #endif
       delay(20);
      }
   }

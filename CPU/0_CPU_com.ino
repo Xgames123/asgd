@@ -1,3 +1,4 @@
+#define LOG_CLOCK false
 const int ComPin = 3;
 const int ClockPin = 2;
 
@@ -21,7 +22,11 @@ void com_init()
 void com_tickClock(){
   ClockValue = !ClockValue;
   digitalWrite(ClockPin, ClockValue);
-  //Serial.println(ClockValue);
+
+  if(LOG_CLOCK){
+   Serial.println(ClockValue);
+  }
+
 }
 
 
