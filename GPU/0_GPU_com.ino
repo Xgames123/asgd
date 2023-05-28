@@ -1,7 +1,7 @@
 const int ComPin = A5;
 const int ClockPin = 2;
 
-bool Buffer[100];
+bool Buffer[500];
 int Index=0;
 
 bool ClockValue = LOW;
@@ -22,8 +22,8 @@ void onClock(){
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
   Index++;
-  if(Index >= 100){
-    Serial.println("RESIVE BUFFER OVERFLOW");
+  if(Index >= sizeof(Buffer)/sizeof(bool)){
+    Serial.println("TOO MUCH DAT IN DATABUFFER (OVERFLOW)");
     Index = 0;
   }
 }
@@ -45,7 +45,7 @@ byte com_readByte(int bitCount=8)
 }
 
 
-bool com_hasBits(int count=1){
+bool com_hasBits(int count){
   if (Index >= count){
     return true;
   }
@@ -55,10 +55,10 @@ bool com_hasBits(int count=1){
 
 bool com_readBit()
 { 
-  if(!com_hasBits())
+  if(!com_hasBits(1))
   {
      Serial.println("NOTE: waiting on bit");
-     while(!com_hasBits()){
+     while(!com_hasBits(1)){
        
      }
   }
