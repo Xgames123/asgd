@@ -13,7 +13,7 @@ foreach($line in Get-Content .\textures.txt) {
     
 	$trimmed = $line.Trim();
 	
-	if ($current_tex_name == "" && $trimmed != ""){
+	if ($current_tex_name == "" -and $trimmed != ""){
 		$current_tex_name = $trimmed
 	}else{
 		

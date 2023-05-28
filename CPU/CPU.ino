@@ -17,9 +17,7 @@ void setup() {
  
   Serial.println("uploading player texture");
 
-  struct GTexture* tex = gpu_createTex(4, 2, 
-  ".xx."
-  "xxxx");
+  struct GTexture* tex = gpu_createTex(4, 2);
   gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
