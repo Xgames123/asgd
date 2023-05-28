@@ -17,6 +17,8 @@ void loop() {
 
   draw_writeBuff();
 
+
+  Serial.println(gpu_buffer_size());
   if (gpu_buffer_filled(10)){
     Serial.print("started executing commands. buffer size: ");
     Serial.println(gpu_buffer_size());
