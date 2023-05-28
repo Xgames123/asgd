@@ -53,6 +53,7 @@ void loop() {
     if (DISy > 0) {
       Serial.print("Top");
       DISy += -1;
+      on_input();
     }else{
       Serial.println("Top limit reached");
     }
