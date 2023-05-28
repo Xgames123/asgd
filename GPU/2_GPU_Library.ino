@@ -29,7 +29,7 @@ bool gpu_buffer_filled(int bits){
 }
 
 int gpu_buffer_size(){
-  return sizeof(Buffer)/sizeof(bool);
+  return Index;
 }
 
 void gpu_read_all_commands(){
