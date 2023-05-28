@@ -21,6 +21,7 @@ GTexture* ActiveTexture = 0;
 void gpu_init()
 {
   com_init();
+  Serial.println("gpu initialized");
 }
 
 bool gpu_buffer_filled(int bits){
