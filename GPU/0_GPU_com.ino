@@ -13,8 +13,16 @@ void com_init()
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
 
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, CHANGE);
 }
+
+void com_update(){
+  if (digitalRead(ComPin) != ClockValue){
+    onClock();
+  }
+
+}
+
 
 void onClock(){
  
@@ -68,7 +76,7 @@ bool com_readBit()
     Serial.println("STARTED WAITING ON BIT");
     #endif
      while(!com_hasBits(1)){
-      
+      com_update();
      }
     #ifdef LOG_WAITING_ON_BIT
     Serial.println("ENDED WAITING ON BIT");

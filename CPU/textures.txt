@@ -1,10 +1,11 @@
 player
 .xx.
 xxxx
+.xx.
 
-
-level_test
-x...x...
-x.xxxxx.
-x.....x.
+level_1
 xxx.xxxx
+x...x.xx
+x.xxx.xx
+xxxxxxxx
+
