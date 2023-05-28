@@ -18,7 +18,8 @@ void loop() {
   draw_writeBuff();
 
   if (gpu_buffer_filled(10)){
-    Serial.println("buffer has more than 10 bits");
+    Serial.print("started executing commands. buffer size: ");
+    Serial.println(gpu_buffer_size());
     gpu_read_all_commands();
   }
 

@@ -26,6 +26,8 @@ void onClock(){
     Serial.println("TOO MUCH DAT IN DATBUFFER (OVERFLOW)");
     Index = 0;
   }
+
+  Serial.println(bit);
 }
 
 
@@ -65,8 +67,6 @@ bool com_readBit()
 
   Index--;
   bool bit = Buffer[Index];
-
-  Serial.println(bit);
 
   return bit;
 }

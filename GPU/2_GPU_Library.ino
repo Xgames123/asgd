@@ -28,6 +28,9 @@ bool gpu_buffer_filled(int bits){
   return com_hasBits(bits);
 }
 
+int gpu_buffer_size(){
+  return sizeof(Buffer)/sizeof(bool);
+}
 
 void gpu_read_all_commands(){
   
@@ -39,6 +42,7 @@ void gpu_read_all_commands(){
   }
 
 }
+
 
 
 void gpu_read_command()
