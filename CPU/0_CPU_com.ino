@@ -2,7 +2,7 @@
 const int ComPin = 3;
 const int ClockPin = 2;
 
-const float ClockSpeed = 30; // bits per second(bps)
+const float ClockSpeed = 5; // bits per second(bps)
 
 const int ClockDelay = (int)(1000.0/ClockSpeed); //Amount of delay between pulsing the clock
 
