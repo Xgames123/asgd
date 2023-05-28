@@ -1,6 +1,5 @@
-const int ComPin = 2;
-const int ClockPin = A5;
-const int ClockDelay = 10;
+const int ComPin = A5;
+const int ClockPin = 2;
 
 bool Buffer[100];
 int Index=0;
@@ -11,11 +10,12 @@ void com_init()
   pinMode(ComPin, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, RISING);
-  attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, FALLING);
 }
 
 
 void onClock(){
+  Serial.println("clock");
+  
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
   Index++;

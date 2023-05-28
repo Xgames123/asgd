@@ -41,7 +41,7 @@ void gpu_read_all_commands(){
 }
 
 
-bool gpu_read_command()
+void gpu_read_command()
 {
   
   if(!com_hasBits(3)){
