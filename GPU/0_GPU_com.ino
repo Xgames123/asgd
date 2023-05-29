@@ -1,6 +1,6 @@
 //#define LOG_CLOCK
 #define LOG_CLOCK_DATA
-#define LOG_WAITING_ON_BIT
+//#define LOG_WAITING_ON_BIT
 const int ComPin = A5;
 const int ClockPin = 2;
 

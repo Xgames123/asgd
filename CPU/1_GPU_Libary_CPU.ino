@@ -1,3 +1,4 @@
+#define LOG_UPLOADTEX
 const int ResetGpu_pin = 4;
 
 struct GTexture
@@ -39,6 +40,15 @@ void gpu_uploadTex(struct GTexture* tex)
 {
   byte w = tex->Width;
   byte h = tex->Height;
+
+#ifdef LOG_UPLOADTEX
+  Serial.println("gpu_uploadTex (");
+  Serial.print("w: ");
+  Serial.print(w);
+  Serial.print(", h: ");
+  Serial.print(h);
+  Serial.println(" )");
+#endif
 
   com_sendByte(0, 3); //Command 0 upload texture()
   com_sendByte(w, 3);
