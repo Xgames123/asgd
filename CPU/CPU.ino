@@ -1,5 +1,3 @@
-//#define tex(a) 
-
 const int JoyXPin = A0;
 const int JoyYPin = A1;
 const int JoyButtonPin = A5;
@@ -7,6 +5,7 @@ int Direction = 0;
 int DISx = 0;
 int DISy = 0;
 void setup() {
+  create_textures();
 
   pinMode(JoyButtonPin, INPUT);
   pinMode(JoyXPin, INPUT);
@@ -17,7 +16,7 @@ void setup() {
  
   Serial.println("uploading player texture");
 
-  struct GTexture* tex = gpu_createTex(4, 2);
+  struct GTexture* tex = Tex_player();
   gpu_uploadTex(tex);
   
   Serial.println("clearing screen");
