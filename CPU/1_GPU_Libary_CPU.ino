@@ -27,6 +27,14 @@ void gpu_init(){
 
 struct GTexture *gpu_createTex(byte w, byte h)
 {
+  
+  Serial.print("gpu_uploadTex (");
+  Serial.print("w: ");
+  Serial.print(w);
+  Serial.print(", h: ");
+  Serial.print(h);
+  Serial.println(" )");
+
   struct GTexture *tex;
   tex = (GTexture*)malloc(sizeof(struct GTexture));
   tex->Width = w;
