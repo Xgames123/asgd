@@ -1,4 +1,4 @@
-#define LOG_BUFSIZE
+//#define LOG_BUFSIZE
 
 int i = 0;
 void setup() {

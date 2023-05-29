@@ -42,7 +42,7 @@ void gpu_uploadTex(struct GTexture* tex)
   byte h = tex->Height;
 
 #ifdef LOG_UPLOADTEX
-  Serial.println("gpu_uploadTex (");
+  Serial.print("gpu_uploadTex (");
   Serial.print("w: ");
   Serial.print(w);
   Serial.print(", h: ");

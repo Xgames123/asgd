@@ -31,14 +31,33 @@ def write_texture_code(name, w, h, data):
         function_code+=f"tex_{name}->Data[{i}] = {data[i]};\n"
     
 
-
+def valid_texname(line):
+    if line.startswith("#"):
+        return False
+    
+    if line == "":
+        return False
+    
+    if "." in line:
+        return False
+    
+    non_x_char = False
+    for char in line:
+        if char != "x" and char != ".":
+            non_x_char = True
+    
+    if not non_x_char:
+        return False
+    
+    return True
 
 with open("textures.txt") as file:
     for line in file:
         trimmed = line.strip()
         
         if current_tex_name == "":
-            if trimmed != "":
+            if valid_texname(trimmed):
+                print(trimmed)
                 current_tex_name = trimmed
             
         else:
