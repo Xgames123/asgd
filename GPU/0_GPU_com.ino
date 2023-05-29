@@ -17,17 +17,17 @@ void com_init()
 }
 
 void com_update(){
-  if (digitalRead(ComPin) != ClockValue){
-    onClock();
+  bool clock = digitalRead(ClockPin);
+  if (clock != ClockValue){
+    ClockValue = clock;
+    onClock(clock);
   }
 
 }
 
 
-void onClock(){
- 
+void onClock(){ 
   //Serial.println(ClockValue);
-  ClockValue = !ClockValue;
 
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
