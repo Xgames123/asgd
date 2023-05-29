@@ -2,14 +2,13 @@
 const int ComPin = 3;
 const int ClockPin = 2;
 
-const float ClockSpeed = 5; // bits per second(bps)
+const float ClockSpeed = 5;  // bits per second(bps)
 
-const int ClockDelay = (int)(1000.0/ClockSpeed); //Amount of delay between pulsing the clock
+const int ClockDelay = (int)(1000.0 / ClockSpeed);  //Amount of delay between pulsing the clock
 
 bool ClockValue = LOW;
 
-void com_init()
-{
+void com_init() {
   pinMode(ClockPin, OUTPUT);
   pinMode(ComPin, OUTPUT);
   digitalWrite(ClockPin, LOW);
@@ -19,29 +18,25 @@ void com_init()
   Serial.print(" bps");
 }
 
-void com_tickClock(){
+void com_tickClock() {
   ClockValue = !ClockValue;
   digitalWrite(ClockPin, ClockValue);
 
-  #ifdef LOG_CLOCK
-   Serial.println(ClockValue);
-  #endif
-
+#ifdef LOG_CLOCK
+  Serial.println(ClockValue);
+#endif
 }
 
 
-void com_sendBit(bool value)
-{
+void com_sendBit(bool value) {
   digitalWrite(ComPin, value);
   com_tickClock();
   Serial.println(value);
   delay(ClockDelay);
 }
-void com_sendByte(byte value, byte bitsize=8)
-{
+void com_sendByte(byte value, byte bitsize = 8) {
   //Serial.print("byte: ");
-  for (int i=0; i < bitsize; i++)
-  {
+  for (int i = 0; i < bitsize; i++) {
     bool data = (value >> i) & 0x01;
     //Serial.print(data);
     com_sendBit(data);
