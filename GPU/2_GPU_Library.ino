@@ -1,10 +1,10 @@
 
 
 //commands
-//0 upload texture(3b w, 3b h, b[] data)
-//1 draw texture(3b x, 3b y)
-//2 clear()
-//3 draw point(3b x, 3b y)
+//1 upload texture(3b w, 3b h, b[] data)
+//2 draw texture(3b x, 3b y)
+//3 clear()
+//4 draw point(3b x, 3b y)
 
 struct GTexture{
 
@@ -16,13 +16,49 @@ struct GTexture{
 
 GTexture* ActiveTexture = 0;
 
+bool CmdBuffer[200];
+int Index = 0;
 
+byte current_command = 0;
 
 void gpu_init()
 {
   com_init();
   Serial.println("gpu initialized");
 }
+
+void gpu_update(){
+  
+  if(com_update()){
+
+    unsigned long time = millis();
+    if((time - last_bit_time) > 600 && Index != 0){
+      Index = 0;
+      current_command = 0;
+      Serial.println("Too much time between bits clearing command buffer");
+    }
+    last_bit_time = time;
+
+    bool bit = digitalRead(ComPin);
+    Buffer[Index] = bit;
+    Index++;
+    if (Index >= sizeof(Buffer) / sizeof(bool)) {
+      Serial.println("TOO MUCH DAT IN DATBUFFER (OVERFLOW)");
+      Index = 0;
+    }
+
+  }
+}
+
+int get_command_size(byte command){
+  if (command == 1){
+    return 
+  }
+
+
+}
+
+
 
 bool gpu_buffer_filled(int bits){
   
@@ -33,25 +69,11 @@ int gpu_buffer_size(){
   return Index;
 }
 
-void gpu_read_all_commands(){
-  
-  while(true){
-    if (!com_hasBits(3)){
-      return;
-    }
-    gpu_read_command();
-  }
-
-}
-
 
 
 void gpu_read_command()
 {
-  
-  if(!com_hasBits(3)){
-    return;
-  }
+
 
   byte command = com_readByte(3);
   if(command == 0) //upload texture

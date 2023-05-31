@@ -21,8 +21,6 @@ void loop() {
   draw_writeBuff();
 
 
-  com_update();
-
   #ifdef LOG_BUFSIZE
   int buffSize = gpu_buffer_size();
   if(lastLoggedBufferSize != buffSize){

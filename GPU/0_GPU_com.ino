@@ -22,34 +22,11 @@ void com_update() {
   bool clock = digitalRead(ClockPin);
   if (clock != ClockValue) {
     ClockValue = clock;
-    onClock(clock);
+    return true;
   }
+  return false;
 }
 
-
-void onClock(bool clock) {
-#ifdef LOG_CLOCK
-  Serial.println(clock);
-#endif
-  unsigned long time = millis();
-  if((time - last_bit_time) > 600){
-    Index = 0;
-    Serial.println("Resetting. Too long since last bit");
-  }
-  last_bit_time = time;
-
-  bool bit = digitalRead(ComPin);
-  Buffer[Index] = bit;
-  Index++;
-  if (Index >= sizeof(Buffer) / sizeof(bool)) {
-    Serial.println("TOO MUCH DAT IN DATBUFFER (OVERFLOW)");
-    Index = 0;
-  }
-
-#ifdef LOG_CLOCK_DATA
-  Serial.println(bit);
-#endif
-}
 
 
 byte com_readByte(int bitCount = 8) {

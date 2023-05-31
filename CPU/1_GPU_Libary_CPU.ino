@@ -58,7 +58,7 @@ void gpu_uploadTex(struct GTexture* tex)
   Serial.println(" )");
 #endif
 
-  com_sendByte(0, 3); //Command 0 upload texture()
+  com_sendByte(1, 3); //Command 1 upload texture()
   com_sendByte(w, 3);
   com_sendByte(h, 3);
   for (int i=0; i<tex->Width*tex->Height; i++){
@@ -69,18 +69,18 @@ void gpu_uploadTex(struct GTexture* tex)
 
 void gpu_clear()
 {
-  com_sendByte(2, 3); //Command 2 clear()
+  com_sendByte(3, 3); //Command 3 clear()
 }
 
 void gpu_drawTex(byte x, byte y)
 {
-  com_sendByte(1, 3); //Command 1 draw texture()
+  com_sendByte(2, 3); //Command 2 draw texture()
   com_sendByte(x, 3);
   com_sendByte(y, 3);
 }
 
 void gpu_drawPoint(byte x, byte y){
-  com_sendByte(3, 3); //Command 3 draw point()
+  com_sendByte(4, 3); //Command 4 draw point()
   com_sendByte(x, 3);
   com_sendByte(y, 3);
 }
