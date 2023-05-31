@@ -33,7 +33,7 @@ void loop() {
   #endif
 
   unsigned long time = millis();
-  if (gpu_buffer_filled(20) || (time-last_gpu_read_time) > 200 ){
+  if (gpu_buffer_filled(20) || (time-last_gpu_read_time) > 500 ){
     last_gpu_read_time = time;
     if (!gpu_buffer_filled(3)){
         return;
