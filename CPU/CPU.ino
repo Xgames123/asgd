@@ -5,6 +5,15 @@ int Direction = 0;
 int DISx = 0;
 int DISy = 0;
 void setup() {
+  
+  Serial.println("TEST");
+
+  byte b = 123;
+  Serial.println(b);
+
+  Serial.println("END TEST");
+  
+  
   create_textures();
 
   pinMode(JoyButtonPin, INPUT);
