@@ -34,7 +34,7 @@ void loop() {
 
   //unsigned long time = millis();
   if (gpu_buffer_filled(3)){
-    last_gpu_read_time = time;
+    //last_gpu_read_time = time;
     if (!gpu_buffer_filled(3)){
         return;
     }
