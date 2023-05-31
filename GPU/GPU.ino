@@ -1,6 +1,5 @@
 //#define LOG_BUFSIZE
 
-int i = 0;
 void setup() {
 
   draw_init();
@@ -14,6 +13,8 @@ void setup() {
 }
 
 int lastLoggedBufferSize = -1;
+
+unsigned long last_gpu_read_time = millis();
 
 void loop() {
 
@@ -31,14 +32,19 @@ void loop() {
   }
   #endif
 
-  if (gpu_buffer_filled(10)){
+  unsigned long time = millis();
+  if (gpu_buffer_filled(20) || (time-last_gpu_read_time) > 200 ){
+    last_gpu_read_time = time;
+    if (!gpu_buffer_filled(3)){
+        return;
+    }
+
     Serial.print("started executing commands. buffer size: ");
     Serial.println(gpu_buffer_size());
     gpu_read_all_commands();
   }
 
   
-  //draw_BuffToSerial();
 }
 
 

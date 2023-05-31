@@ -140,6 +140,10 @@ struct GTexture* gpu_read_texture()
   byte w = com_readByte(3);
   byte h = com_readByte(3);
 
+Serial.print("gpu_read_tex() w: ");
+  Serial.print(w);
+  Serial.print(" h: ");
+  Serial.println(h);
   
   struct GTexture* tex = (struct GTexture*)malloc(sizeof(struct GTexture));
   tex->Width = w;

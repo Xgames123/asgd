@@ -1,10 +1,10 @@
 //#define LOG_CLOCK
-#define LOG_CLOCK_DATA
-//#define LOG_WAITING_ON_BIT
+//#define LOG_CLOCK_DATA
+#define LOG_WAITING_ON_BIT
 const int ComPin = A5;
 const int ClockPin = 2;
 
-bool Buffer[500];
+bool Buffer[100];
 int Index = 0;
 
 bool ClockValue = LOW;
