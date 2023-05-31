@@ -40,16 +40,7 @@ struct GTexture *gpu_createTex(byte w, byte h)
   tex->Height = h;
   tex->Data = (bool*)malloc(sizeof(bool)*w*h);
   
-  byte ww = tex->Width;
-  byte hh = tex->Height;
-
-  Serial.print("gpu_createTex_after (");
-  Serial.print("w: ");
-  Serial.print(ww);
-  Serial.print(", h: ");
-  Serial.print(hh);
-  Serial.println(" )");
-
+  return tex;
 }
 
 
