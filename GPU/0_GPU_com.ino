@@ -27,7 +27,7 @@ void com_update() {
 
 void onClock(bool clock) {
 #ifdef LOG_CLOCK
-  Serial.println(ClockValue);
+  Serial.println(clock);
 #endif
 
   bool bit = digitalRead(ComPin);

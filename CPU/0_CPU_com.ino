@@ -32,10 +32,11 @@ void com_tickClock() {
 void com_sendBit(bool value) {
   digitalWrite(ComPin, value);
   com_tickClock();
+  delay(ClockDelay);
   #ifdef LOG_CLOCK_DATA
   Serial.println(value);
   #endif
-  delay(ClockDelay);
+  
 }
 void com_sendByte(byte value, byte bitsize = 8) {
   //Serial.print("byte: ");
