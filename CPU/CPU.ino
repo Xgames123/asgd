@@ -14,7 +14,6 @@ void setup() {
 
   Serial.println("END TEST");
   
-  
   create_textures();
 
   pinMode(JoyButtonPin, INPUT);
