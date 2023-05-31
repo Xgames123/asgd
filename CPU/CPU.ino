@@ -5,7 +5,8 @@ int Direction = 0;
 int DISx = 0;
 int DISy = 0;
 void setup() {
-  
+  Serial.begin(9600);
+
   Serial.println("TEST");
 
   byte b = 123;
@@ -20,7 +21,7 @@ void setup() {
   pinMode(JoyXPin, INPUT);
   pinMode(JoyYPin, INPUT);
   //com_init();
-  Serial.begin(9600);
+ 
   gpu_init();
  
   Serial.println("uploading player texture");
