@@ -25,7 +25,7 @@ void gpu_init(){
 
 }
 
-struct GTexture *gpu_createTex(byte w, byte h)
+struct GTexture *gpu_createTex(int w, int h)
 {
   
   Serial.print("gpu_uploadTex (");
