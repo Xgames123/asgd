@@ -9,6 +9,8 @@ int Index = 0;
 
 bool ClockValue = LOW;
 
+unsigned long last_bit_time = millis();
+
 void com_init() {
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
@@ -29,6 +31,12 @@ void onClock(bool clock) {
 #ifdef LOG_CLOCK
   Serial.println(clock);
 #endif
+  unsigned long time = millis();
+  if((time - last_bit_time) > 600){
+    Index = 0;
+    Serial.println("Resetting. Too long since last bit");
+  }
+  last_bit_time = time;
 
   bool bit = digitalRead(ComPin);
   Buffer[Index] = bit;
