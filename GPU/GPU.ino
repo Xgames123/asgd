@@ -30,16 +30,8 @@ void loop() {
   }
   #endif
 
-  //unsigned long time = millis();
-  if (gpu_buffer_filled(3)){
-    //last_gpu_read_time = time;
-    
-    Serial.print("started executing commands. buffer size: ");
-    Serial.println(gpu_buffer_size());
-    gpu_read_all_commands();
-  }
 
-  
+  gpu_update();
 }
 
 
