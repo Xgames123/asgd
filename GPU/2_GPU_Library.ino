@@ -1,11 +1,22 @@
 //commands
-//1 start uploading texture(3b w, 3b h)
-//2 draw texture(3b x, 3b y)
+//1 start uploading texture(4b w, 4b h)
+//2 draw texture(4b x, 4b y)
 //3 clear()
-//4 draw point(3b x, 3b y)
+//4 draw point(4b x, 4b y)
 //5 upload data 8bits (8b data)
 //6 (unused)
 //7 init
+
+int CommandSizeDict[] = {
+  -1,
+  8,
+  8,
+  0,
+  8,
+  -1,
+  0
+};
+
 
 struct GTexture{
 
@@ -33,8 +44,11 @@ void gpu_init()
 }
 
 void gpu_update(){
+
+  bool* buff = CmdBuffer;
+  int* cmdSizeDict = CommandSizeDict;
   
-  if(com_update(*CmdBuffer, sizeof(CmdBuffer)/sizeof(bool)){
+  if(com_update(buff, (sizeof(CmdBuffer)/sizeof(bool)), cmdSizeDict)){
     
     gpu_exec_command(CmdBuffer);
   }
@@ -65,10 +79,6 @@ byte peekByte(int start, int len)
 
 
 
-bool gpu_buffer_filled(int bits){
-  
-  return com_hasBits(bits);
-}
 
 int gpu_buffer_size(){
   return Index;
@@ -162,13 +172,20 @@ void gpu_exec_command(bool* buff)
     return;
   }else if (command == 5) //upload data 8bits
   {
-    byte data = com_parseByte(buff, 4, 8);
-    //TODO: everything
     if (DownloadTexture == 0)
     {
+      Serial.println("CANT WRITE TO A TEXTURE THAT IS NOT CREATED");
       return;
     }
-    
+
+    Serial.println("Writing data to texture");
+    for (int i = 0; i < 8; i++)
+    {
+      DownloadTexture->Data[Texture_index+i] = Buff[4+i];
+      Texture_index++;
+    }
+
+    return;    
   }
 
   Serial.print("INVALID COMMAND ");
