@@ -1,4 +1,13 @@
 #define LOG_UPLOADTEX
+
+#define GPU_CMD_STARTTEXUPLOAD 1
+#define GPU_CMD_DRAWTEX 2
+#define GPU_CMD_DRAWCLEAR 3
+#define GPU_CMD_DRAWPOINT 4
+#define GPU_CMD_DATA8 5
+
+#define GPU_CMD_INIT 7
+
 const int ResetGpu_pin = 4;
 
 struct GTexture
@@ -19,9 +28,10 @@ void gpu_init(){
  digitalWrite(ResetGpu_pin, LOW);
  delay(10);
  digitalWrite(ResetGpu_pin, HIGH);
- delay(4000);
- Serial.println("gpu initialized");
-
+ delay(5000);
+ Serial.println("sending gpu init command");
+ 
+ com_sendCmd(GPU_CMD_INIT);
 
 }
 

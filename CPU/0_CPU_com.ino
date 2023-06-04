@@ -38,6 +38,13 @@ void com_sendBit(bool value) {
   #endif
   
 }
+
+void com_sendCmd(byte cmd)
+{
+  com_sendByte(cmd, 4);
+}
+
+
 void com_sendByte(byte value, byte bitsize = 8) {
   //Serial.print("byte: ");
   for (int i = 0; i < bitsize; i++) {
