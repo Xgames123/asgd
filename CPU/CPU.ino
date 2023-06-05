@@ -6,13 +6,6 @@ int DISx = 0;
 int DISy = 0;
 void setup() {
   Serial.begin(9600);
-
-  Serial.println("TEST");
-
-  byte b = 123;
-  Serial.println(b);
-
-  Serial.println("END TEST");
   
   create_textures();
 
@@ -166,4 +159,3 @@ void testLeds(){
   }
   
 }
-

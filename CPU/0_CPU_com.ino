@@ -1,5 +1,5 @@
 //#define LOG_CLOCK
-//#define LOG_CLOCK_DATA
+#define LOG_CLOCK_DATA
 const int ComPin = 3;
 const int ClockPin = 2;
 
