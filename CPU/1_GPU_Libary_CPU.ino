@@ -1,5 +1,6 @@
 //#define LOG_UPLOADTEX
-#define LOG_TEXTURECREATE
+//#define LOG_CREATETEX
+//#define LOG_GPUINIT
 
 #define GPU_CMD_UPLOADTEX 1
 #define GPU_CMD_DRAWTEX 2
@@ -21,7 +22,9 @@ struct GTexture
 
 void gpu_init(){
  com_init();
- Serial.println("initializing gpu");
+ #ifdef LOG_GPUINIT
+ Serial.println("Resetting gpu....");
+ #endif
  pinMode(ResetGpu_pin, OUTPUT);
  
  digitalWrite(ResetGpu_pin, HIGH);
@@ -30,16 +33,20 @@ void gpu_init(){
  delay(10);
  digitalWrite(ResetGpu_pin, HIGH);
  delay(5000);
- Serial.println("Sending gpu init command");
+  #ifdef LOG_GPUINIT
+ Serial.println("Sending gpu init command...");
+ #endif
  com_sendCmd(GPU_CMD_INIT);
  delay(1000);
+ #ifdef LOG_GPUINIT
  Serial.println("Gpu should be initialized by now");
+ #endif
 }
 
 struct GTexture *gpu_createTex(byte w, byte h)
 {
-  #ifdef LOG_TEXTURECREATE
-  Serial.print("gpu_createTex (");
+  #ifdef LOG_CREATETEX
+  Serial.print("creating texture (");
   Serial.print("w: ");
   Serial.print(w);
   Serial.print(", h: ");

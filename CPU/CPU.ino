@@ -1,3 +1,4 @@
+#define LOG_TEST1
 const int JoyXPin = A0;
 const int JoyYPin = A1;
 const int JoyButtonPin = A5;
@@ -16,19 +17,36 @@ void setup() {
  
   gpu_init();
  
-  Serial.println("uploading player texture");
+  
+}
 
+void gpu_test1()
+{
+  #ifdef LOG_TEST1
+  Serial.println("Uploading player texture");
+#endif
   struct GTexture* tex = Tex_player();
   gpu_uploadTex(tex);
-  
-  Serial.println("clearing screen");
+
+  #ifdef LOG_TEST1
+  Serial.println("Clearing screen");
+  #endif
   gpu_clear();
 
-  //Serial.println("drawing texture at x: 0 y: 0");
-  //gpu_drawTex(0, 0);
 
+#ifdef LOG_TEST1
+    Serial.println("drawing point at 0 0");
+#endif
   gpu_drawPoint(0, 0);
+
+#ifdef LOG_TEST1
+  Serial.println("Drawing texture at x: 1 y: 1");
+  #endif
+  gpu_drawTex(1, 1);
+
+  
 }
+
 
 void loop() {
   int x = analogRead(JoyXPin);

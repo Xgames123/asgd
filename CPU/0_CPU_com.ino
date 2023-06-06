@@ -1,4 +1,5 @@
 //#define LOG_CLOCK
+//#define LOG_CLOCKSPEED
 #define LOG_CLOCK_DATA
 const int ComPin = 3;
 const int ClockPin = 2;
@@ -14,9 +15,11 @@ void com_init() {
   pinMode(ComPin, OUTPUT);
   digitalWrite(ClockPin, LOW);
 
+#ifdef LOG_CLOCKSPEED
   Serial.print("clock speed: ");
   Serial.print(ClockSpeed);
-  Serial.print(" bps");
+  Serial.println(" bps");
+  #endif
 }
 
 void com_tickClock() {
