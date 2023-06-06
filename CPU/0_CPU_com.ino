@@ -45,7 +45,7 @@ void com_sendCmd(byte cmd)
 }
 
 
-void com_sendByte(byte value, byte bitsize = 8) {
+void com_sendByte(byte value, byte bitsize) {
   //Serial.print("byte: ");
   for (int i = 0; i < bitsize; i++) {
     bool data = (value >> i) & 0x01;

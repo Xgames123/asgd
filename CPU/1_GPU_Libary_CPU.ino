@@ -71,12 +71,18 @@ void gpu_uploadTex(struct GTexture* tex)
 #endif
 
   com_sendCmd(GPU_CMD_UPLOADTEX);
-
-  com_sendByte(1, 3); //Command 1 upload texture()
   com_sendByte(w, 3);
   com_sendByte(h, 3);
-  for (int i=0; i<tex->Width*tex->Height; i++){
+  for (int i=0; i<tex->Width*tex->Height; i+=8){
+    com_sendCmd(GPU_CMD_DATA8);
     com_sendBit(tex->Data[i]);
+    com_sendBit(tex->Data[i+1]);
+    com_sendBit(tex->Data[i+2]);
+    com_sendBit(tex->Data[i+3]);
+    com_sendBit(tex->Data[i+4]);
+    com_sendBit(tex->Data[i+5]);
+    com_sendBit(tex->Data[i+6]);
+    com_sendBit(tex->Data[i+7]);
   }
 }
 
