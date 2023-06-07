@@ -196,6 +196,7 @@ void gpu_exec_command(bool *buff) {
 void gpu_print_texture(struct GTexture *tex) {
   int w = tex->Width;
   int h = tex->Height;
+  int i = 0;
   for (int iw = 0; iw < w; iw++) {
     for (int ih = 0; ih < h; ih++) {
       if (tex->Data[i]) {
@@ -203,6 +204,7 @@ void gpu_print_texture(struct GTexture *tex) {
       } else {
         Serial.print('.');
       }
+      i++;
     }
     Serial.println();
   }
