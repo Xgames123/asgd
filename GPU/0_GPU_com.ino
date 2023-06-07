@@ -1,5 +1,6 @@
 // #define LOG_CLOCK
 #define LOG_CLOCK_DATA
+#define LOG_COMMANDID
 const int ComPin = A5;
 const int ClockPin = 2;
 
@@ -23,7 +24,8 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     ClockValue = clock;
 
     unsigned long time = millis();
-    if (last_bit_time != -1 && (time - last_bit_time) > 600 && BufferIndex != 0) {
+    if (last_bit_time != -1 && (time - last_bit_time) > 600 &&
+        BufferIndex != 0) {
       BufferIndex = 0;
       CommandId = 0;
       Serial.println("OUT OF SYNC");
@@ -48,6 +50,10 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     if (CommandId == 0 && BufferIndex >= 4) {
       CommandId = com_parseByte(buff, 0, 4);
       CommandSize = cmdSizeDict[CommandId] + 4;
+#ifdef LOG_COMMANDID
+      Serial.print("Got command id: ");
+      Serial.printn(CommandId);
+#endif
       return false;
     }
 
