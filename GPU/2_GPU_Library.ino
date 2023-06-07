@@ -174,6 +174,8 @@ void gpu_exec_command(bool *buff) {
       Texture_index++;
       if (Texture_index >= size) {
         Serial.println("Texture upload done");
+        print_texture(DownloadTexture);
+
         if (ActiveTexture != 0) {
           gpu_free_texture(ActiveTexture);
           ActiveTexture = 0;
@@ -189,6 +191,21 @@ void gpu_exec_command(bool *buff) {
 
   Serial.print("INVALID COMMAND ");
   Serial.println(command);
+}
+
+void gpu_print_texture(struct GTexture *tex) {
+  int w = tex->Width;
+  int h = tex->Height;
+  for (int iw = 0; iw < w; iw++) {
+    for (int ih = 0; ih < h; ih++) {
+      if (tex->Data[i]) {
+        Serial.print('x');
+      } else {
+        Serial.print('.');
+      }
+    }
+    Serial.println();
+  }
 }
 
 void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {

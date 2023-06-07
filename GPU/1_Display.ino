@@ -1,10 +1,9 @@
-const int RowPins[] = { 11, 12, 13, A0, A1, A2, A3, A4 };
-const int ColumPins[] = { 3, 4, 5, 8, 6, 7, 9, 10 };
+const int RowPins[] = {11, 12, 13, A0, A1, A2, A3, A4};
+const int ColumPins[] = {3, 4, 5, 8, 6, 7, 9, 10};
 const int displayW = sizeof(RowPins) / sizeof(int);
 const int displayH = sizeof(ColumPins) / sizeof(int);
 
 bool displayBuff[displayW * displayH];
-
 
 void draw_init() {
   for (int i = 0; i < displayW; i++) {
@@ -18,8 +17,6 @@ void draw_init() {
   }
 }
 
-
-
 void draw_rect_solid(int x, int y, int w, int h, bool value) {
   for (int iw = 0; iw < w; iw++) {
     for (int ih = 0; ih < h; ih++) {
@@ -29,28 +26,20 @@ void draw_rect_solid(int x, int y, int w, int h, bool value) {
 }
 
 void draw_line(int startx, int starty, int endx, int endy, bool value) {
-  //A(2, 1)
-  //B(5, 2)
-  //y - Ay = dely/delx(x-xA)
-  //y = ((Ay-By)/(Ax-Bx))*(x-Ax)+Ay
+  // A(2, 1)
+  // B(5, 2)
+  // y - Ay = dely/delx(x-xA)
+  // y = ((Ay-By)/(Ax-Bx))*(x-Ax)+Ay
 
-  //TODO: make this
-
-
-  
+  // TODO: make this
 }
 
-void draw_tris(int x0, int y0, int x1, int y1, int x2, int y2)
-{
-  //A(Ax,Ay)
-  //B(Bx, By)
-  //C(Cx, Cy)
+void draw_tris(int x0, int y0, int x1, int y1, int x2, int y2) {
+  // A(Ax,Ay)
+  // B(Bx, By)
+  // C(Cx, Cy)
   //
-
-  
-  
 }
-
 
 void draw_verticalLine(int x, int y, int len, bool value) {
   for (int i = 0; i < len; i++) {
@@ -62,7 +51,6 @@ void draw_horizontalLine(int x, int y, int len, bool value) {
     draw_point(x + i, y, value);
   }
 }
-
 
 void draw_point(int x, int y, bool value) {
   displayBuff[(y * displayW) + x] = value;
@@ -82,7 +70,7 @@ void draw_writeBuff() {
     for (int x = 0; x < displayW; x++) {
       bool pixel = displayBuff[y * displayW + x];
       draw_writePixel(x, y, pixel);
-      //draw_writePixel(lastX, lastY, LOW);
+      // draw_writePixel(lastX, lastY, LOW);
       lastX = x;
       lastY = y;
     }
@@ -103,8 +91,6 @@ void draw_BuffToSerial() {
   }
 }
 
-
-
 void fast_write() {
   while (true) {
 
@@ -124,13 +110,11 @@ void fast_write() {
   }
 }
 
-
-
 void draw_writePixel(int x, int y, bool value) {
   if (x < 0 || x > displayW || y < 0 || y > displayH) {
     return;
   }
 
-  digitalWrite(RowPins[x], value);
-  digitalWrite(ColumPins[y], !value);
+  digitalWrite(RowPins[y], value);
+  digitalWrite(ColumPins[x], !value);
 }
