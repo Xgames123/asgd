@@ -17,30 +17,13 @@ void setup() {
 
   gpu_init();
 
-  gpu_test1();
-}
-
-void gpu_test1() {
 #ifdef LOG_TEST1
   Serial.println("Uploading player texture");
 #endif
   struct GTexture *tex = Tex_player();
   gpu_uploadTex(tex);
 
-#ifdef LOG_TEST1
-  Serial.println("Clearing screen");
-#endif
-  gpu_clear();
-
-#ifdef LOG_TEST1
-  Serial.println("drawing point at 0 0");
-#endif
-  gpu_drawPoint(0, 0);
-
-#ifdef LOG_TEST1
-  Serial.println("Drawing texture at x: 1 y: 1");
-#endif
-  gpu_drawTex(1, 1);
+  on_input();
 }
 
 void loop() {
@@ -156,7 +139,8 @@ void on_input() {
   Serial.print(DISx);
   Serial.print("  y: ");
   Serial.println(DISy);
-  gpu_drawPoint(DISx, DISy);
+  gpu_clear();
+  gpu_drawTex(DISx, DISy);
 }
 
 void testLeds() {
