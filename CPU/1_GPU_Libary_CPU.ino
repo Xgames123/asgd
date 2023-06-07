@@ -1,5 +1,6 @@
 //#define LOG_UPLOADTEX
-#define LOG_TEXTURECREATE
+//#define LOG_CREATETEX
+//#define LOG_GPUINIT
 
 #define GPU_CMD_UPLOADTEX 1
 #define GPU_CMD_DRAWTEX 2
@@ -21,7 +22,9 @@ struct GTexture
 
 void gpu_init(){
  com_init();
- Serial.println("initializing gpu");
+ #ifdef LOG_GPUINIT
+ Serial.println("Resetting gpu....");
+ #endif
  pinMode(ResetGpu_pin, OUTPUT);
  
  digitalWrite(ResetGpu_pin, HIGH);
@@ -30,16 +33,20 @@ void gpu_init(){
  delay(10);
  digitalWrite(ResetGpu_pin, HIGH);
  delay(5000);
- Serial.println("Sending gpu init command");
+  #ifdef LOG_GPUINIT
+ Serial.println("Sending gpu init command...");
+ #endif
  com_sendCmd(GPU_CMD_INIT);
  delay(1000);
+ #ifdef LOG_GPUINIT
  Serial.println("Gpu should be initialized by now");
+ #endif
 }
 
 struct GTexture *gpu_createTex(byte w, byte h)
 {
-  #ifdef LOG_TEXTURECREATE
-  Serial.print("gpu_createTex (");
+  #ifdef LOG_CREATETEX
+  Serial.print("creating texture (");
   Serial.print("w: ");
   Serial.print(w);
   Serial.print(", h: ");
@@ -71,12 +78,18 @@ void gpu_uploadTex(struct GTexture* tex)
 #endif
 
   com_sendCmd(GPU_CMD_UPLOADTEX);
-
-  com_sendByte(1, 3); //Command 1 upload texture()
   com_sendByte(w, 3);
   com_sendByte(h, 3);
-  for (int i=0; i<tex->Width*tex->Height; i++){
+  for (int i=0; i<tex->Width*tex->Height; i+=8){
+    com_sendCmd(GPU_CMD_DATA8);
     com_sendBit(tex->Data[i]);
+    com_sendBit(tex->Data[i+1]);
+    com_sendBit(tex->Data[i+2]);
+    com_sendBit(tex->Data[i+3]);
+    com_sendBit(tex->Data[i+4]);
+    com_sendBit(tex->Data[i+5]);
+    com_sendBit(tex->Data[i+6]);
+    com_sendBit(tex->Data[i+7]);
   }
 }
 

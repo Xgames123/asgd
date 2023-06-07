@@ -29,12 +29,27 @@ void draw_rect_solid(int x, int y, int w, int h, bool value) {
 }
 
 void draw_line(int startx, int starty, int endx, int endy, bool value) {
-  //ax+b = y
-  //y-x = a(y-x)
+  //A(2, 1)
+  //B(5, 2)
+  //y - Ay = dely/delx(x-xA)
+  //y = ((Ay-By)/(Ax-Bx))*(x-Ax)+Ay
 
   //TODO: make this
+
+
+  
 }
 
+void draw_tris(int x0, int y0, int x1, int y1, int x2, int y2)
+{
+  //A(Ax,Ay)
+  //B(Bx, By)
+  //C(Cx, Cy)
+  //
+
+  
+  
+}
 
 
 void draw_verticalLine(int x, int y, int len, bool value) {

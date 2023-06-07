@@ -29,7 +29,7 @@ int CommandSizeDict[] = {
 struct GTexture{
 
   byte Width;
-  byte Heigt;
+  byte Height;
 
   bool* Data;
 };
@@ -99,7 +99,7 @@ void gpu_exec_command(bool* buff)
   
   byte command = com_parseByte(buff, 0, 4);
   
-  if (Command == GPU_CMD_INIT) //init
+  if (command == GPU_CMD_INIT) //init
   {
     if (Initialized == true)
     {
@@ -118,7 +118,7 @@ void gpu_exec_command(bool* buff)
     return;
   }
   
-  if(command == 1) //start uploading texture
+  if(command == GPU_CMD_UPLOADTEX) //start uploading texture
   {
 
     if (DownloadTexture != 0)
@@ -127,20 +127,20 @@ void gpu_exec_command(bool* buff)
       return;
     }
     
-    byte w = com_parseByte(4, 4);
-    byte h = com_parseByte(8, 4);
+    byte w = com_parseByte(buff, 4, 4);
+    byte h = com_parseByte(buff, 8, 4);
     
     Serial.println("Started downloading texture ");
     GTexture* tex = gpu_create_texture(w, h);
 
     Serial.print(tex->Width);
     Serial.print("x");
-    Serial.println(tex->Heigt);
+    Serial.println(tex->Height);
     
     DownloadTexture = tex;
     return;
   }
-  if(command == 2) //draw texture
+  if(command == GPU_CMD_DRAWTEX) //draw texture
   {
     Serial.println("Draw Texture");
     if(ActiveTexture == 0)
@@ -159,13 +159,13 @@ void gpu_exec_command(bool* buff)
     gpu_draw_texture(ActiveTexture, x, y);
     return;
   }
-  if (command == 3) // clear
+  if (command == GPU_CMD_DRAWCLEAR) // clear
   {
     Serial.println("Clear");
     draw_clear(LOW);
     return;
   }
-  if (command == 4){ //draw point
+  if (command == GPU_CMD_DRAWPOINT){ //draw point
     Serial.print("Draw point: ");
     
     byte x = com_parseByte(buff,4, 4);
@@ -178,7 +178,7 @@ void gpu_exec_command(bool* buff)
     draw_point(x, y, HIGH);
     
     return;
-  }else if (command == 5) //upload data 8bits
+  }else if (command == GPU_CMD_DATA8) //data 8bits
   {
     if (DownloadTexture == 0)
     {
@@ -187,10 +187,23 @@ void gpu_exec_command(bool* buff)
     }
 
     Serial.println("Writing data to texture");
+    int size = DownloadTexture->Width*DownloadTexture->Height;
     for (int i = 0; i < 8; i++)
     {
-      DownloadTexture->Data[Texture_index+i] = Buff[4+i];
+      DownloadTexture->Data[Texture_index+i] = buff[4+i];
       Texture_index++;
+      if (Texture_index >= size)
+      {
+        Serial.println("Texture upload done");
+        if (ActiveTexture != 0)
+        {
+          gpu_free_texture(ActiveTexture);
+          ActiveTexture = 0; 
+        }
+        ActiveTexture = DownloadTexture;
+        DownloadTexture = 0;
+        return;
+      }
     }
 
     return;    
@@ -205,7 +218,7 @@ void gpu_exec_command(bool* buff)
 void gpu_draw_texture(struct GTexture* tex, byte x, byte y)
 {
   int w = tex->Width;
-  int h = tex->Heigt;
+  int h = tex->Height;
   int i = 0;
   for (int iw =0; iw < w; iw++)
   {
@@ -223,7 +236,7 @@ struct GTexture* gpu_create_texture(byte w, byte h)
 {
   struct GTexture* tex = (struct GTexture*)malloc(sizeof(struct GTexture));
   tex->Width = w;
-  tex->Heigt = h;
+  tex->Height = h;
   tex->Data = (bool*)malloc(sizeof(bool)*w*h);
 
   return tex;
@@ -233,24 +246,4 @@ void gpu_free_texture(struct GTexture* tex)
 {
   free(tex->Data);
   free(tex);
-}
-
-void gpu_read_texture_data(struct GTexture* tex)
-{
-  Serial.print("gpu_read_tex() w: ");
-  Serial.print(w);
-  Serial.print(" h: ");
-  Serial.println(h);
-  
-  struct GTexture* tex = (struct GTexture*)malloc(sizeof(struct GTexture));
-  tex->Width = w;
-  tex->Heigt = h;
-  tex->Data = (bool*)malloc(sizeof(bool)*w*h);
-  
-  for (int i=0; i < w*h; i++)
-  {
-    tex->Data[i] = peekBit();
-  }
-
-  return tex;
 }
