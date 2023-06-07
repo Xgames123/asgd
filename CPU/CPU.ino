@@ -139,8 +139,8 @@ void on_input() {
   Serial.print(DISx);
   Serial.print("  y: ");
   Serial.println(DISy);
-  gpu_clear();
   gpu_drawTex(DISx, DISy);
+  gpu_swapclear();
 }
 
 void testLeds() {

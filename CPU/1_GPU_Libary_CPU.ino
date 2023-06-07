@@ -7,8 +7,9 @@
 #define GPU_CMD_DRAWCLEAR 3
 #define GPU_CMD_DRAWPOINT 4
 #define GPU_CMD_DATA8 5
-#define GPU_CMD_SWAPBUFF 6
+#define GPU_CMD_SWAP 6
 #define GPU_CMD_INIT 7
+#define GPU_CMD_SWAPCLEAR 8
 
 const int ResetGpu_pin = 4;
 
@@ -90,6 +91,12 @@ void gpu_uploadTex(struct GTexture *tex) {
 }
 
 void gpu_clear() { com_sendCmd(GPU_CMD_DRAWCLEAR); }
+
+void gpu_swap(){ com_sendCmd(GPU_CMD_SWAP);}
+
+void gpu_swapclear(){
+  com_sendCmd(GPU_CMD_SWAPCLEAR);
+}
 
 void gpu_drawTex(byte x, byte y) {
   com_sendCmd(GPU_CMD_DRAWTEX);

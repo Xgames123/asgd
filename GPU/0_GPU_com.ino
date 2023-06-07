@@ -13,7 +13,7 @@ unsigned long last_bit_time = -1;
 
 unsigned long last_clock_time = -1;
 
-int max_bps = 99999999;
+int max_bps = 999;
 
 void com_init() {
   pinMode(ClockPin, INPUT);
@@ -35,7 +35,7 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
   if (max_bps > bps) {
     max_bps = bps;
     Serial.print("Max clock speed: ");
-    Serial.println(max_pps);
+    Serial.println(max_bps);
   }
 
   bool clock = digitalRead(ClockPin);
