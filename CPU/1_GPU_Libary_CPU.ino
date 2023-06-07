@@ -1,5 +1,5 @@
 #define LOG_UPLOADTEX
-#define LOG_CREATETEX
+// #define LOG_CREATETEX
 #define LOG_GPUINIT
 
 #define GPU_CMD_UPLOADTEX 1

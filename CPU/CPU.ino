@@ -15,6 +15,7 @@ void setup() {
   pinMode(JoyYPin, INPUT);
   // com_init();
 
+  Serial.println("a??");
   gpu_init();
 
   gpu_test1();
