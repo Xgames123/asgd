@@ -1,6 +1,6 @@
 // #define LOG_CLOCK
-#define LOG_CLOCK_DATA
-#define LOG_COMMANDID
+// #define LOG_CLOCK_DATA
+// #define LOG_COMMANDID
 const int ComPin = A5;
 const int ClockPin = 2;
 

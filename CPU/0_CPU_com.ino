@@ -1,10 +1,10 @@
 // #define LOG_CLOCK
 #define LOG_CLOCKSPEED
-#define LOG_CLOCK_DATA
+// #define LOG_CLOCK_DATA
 const int ComPin = 3;
 const int ClockPin = 2;
 
-const float ClockSpeed = 20; // bits per second(bps)
+const float ClockSpeed = 50; // bits per second(bps)
 
 const int ClockDelay =
     (int)(1000.0 / ClockSpeed); // Amount of delay between pulsing the clock

@@ -199,8 +199,9 @@ void gpu_print_texture(struct GTexture *tex) {
   int w = tex->Width;
   int h = tex->Height;
   int i = 0;
-  for (int iw = 0; iw < w; iw++) {
-    for (int ih = 0; ih < h; ih++) {
+
+  for (int ih = 0; ih < h; ih++) {
+    for (int iw = 0; iw < w; iw++) {
       if (tex->Data[i]) {
         Serial.print('x');
       } else {
@@ -216,8 +217,8 @@ void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {
   int w = tex->Width;
   int h = tex->Height;
   int i = 0;
-  for (int iw = 0; iw < w; iw++) {
-    for (int ih = 0; ih < h; ih++) {
+  for (int ih = 0; ih < h; ih++) {
+    for (int iw = 0; iw < w; iw++) {
       draw_point(x + iw, y + ih, tex->Data[i]);
       i++;
     }
