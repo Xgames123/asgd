@@ -16,7 +16,7 @@
 
 #define GPU_CMD_INIT 7
 
-int CommandSizeDict[] = {-1, 8, 8, 0, 8, -1, 0};
+int CommandSizeDict[] = {-1, 8, 8, 0, 8, 8, -1, 0};
 
 struct GTexture {
 
