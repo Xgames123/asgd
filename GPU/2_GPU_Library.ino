@@ -121,6 +121,7 @@ void gpu_exec_command(bool *buff) {
     Serial.println(tex->Height);
 
     DownloadTexture = tex;
+    Texture_index = 0;
     return;
   }
   if (command == GPU_CMD_DRAWTEX) // draw texture
@@ -170,8 +171,8 @@ void gpu_exec_command(bool *buff) {
     Serial.println("Writing data to texture");
     int size = DownloadTexture->Width * DownloadTexture->Height;
     for (int i = 0; i < 8; i++) {
-      DownloadTexture->Data[Texture_index + i] = buff[4 + i];
-      Texture_index++;
+      DownloadTexture->Data[Texture_index] = buff[4 + i];
+
       if (Texture_index >= size) {
         Serial.println("Texture upload done");
         gpu_print_texture(DownloadTexture);
@@ -184,6 +185,7 @@ void gpu_exec_command(bool *buff) {
         DownloadTexture = 0;
         return;
       }
+      Texture_index++;
     }
 
     return;
