@@ -8,7 +8,7 @@ int BufferIndex = 0;
 byte CommandId = 0;
 int CommandSize = 0;
 
-unsigned long last_bit_time = millis();
+unsigned long last_bit_time = -1;
 
 void com_init() {
   pinMode(ClockPin, INPUT);
@@ -23,7 +23,7 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     ClockValue = clock;
 
     unsigned long time = millis();
-    if ((time - last_bit_time) > 600 && BufferIndex != 0) {
+    if (last_bit_time != -1 && (time - last_bit_time) > 600 && BufferIndex != 0) {
       BufferIndex = 0;
       CommandId = 0;
       Serial.println("OUT OF SYNC");
