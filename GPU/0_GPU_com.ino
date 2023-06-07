@@ -11,6 +11,10 @@ int CommandSize = 0;
 
 unsigned long last_bit_time = -1;
 
+unsigned long last_clock_time = -1;
+
+int max_bps = 99999999;
+
 void com_init() {
   pinMode(ClockPin, INPUT);
   pinMode(ComPin, INPUT);
@@ -24,6 +28,16 @@ void com_reset() {
 }
 
 bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
+  unsigned long ctime = millis();
+
+  int bps = (1000.0 / (ctime - last_clock_time));
+  last_clock_time = ctime;
+  if (max_bps > bps) {
+    max_bps = bps;
+    Serial.print("Max clock speed: ");
+    Serial.println(max_pps);
+  }
+
   bool clock = digitalRead(ClockPin);
   if (clock != ClockValue) {
     ClockValue = clock;

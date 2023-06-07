@@ -7,7 +7,7 @@
 #define GPU_CMD_DRAWCLEAR 3
 #define GPU_CMD_DRAWPOINT 4
 #define GPU_CMD_DATA8 5
-
+#define GPU_CMD_SWAPBUFF 6
 #define GPU_CMD_INIT 7
 
 const int ResetGpu_pin = 4;

@@ -13,10 +13,10 @@
 #define GPU_CMD_DRAWCLEAR 3
 #define GPU_CMD_DRAWPOINT 4
 #define GPU_CMD_DATA8 5
-
+#define GPU_CMD_SWAPBUFF 6
 #define GPU_CMD_INIT 7
 
-int CommandSizeDict[] = {-1, 8, 8, 0, 8, 8, -1, 0};
+int CommandSizeDict[] = {-1, 8, 8, 0, 8, 8, 0, 0};
 
 struct GTexture {
 
@@ -147,8 +147,7 @@ void gpu_exec_command(bool *buff) {
     Serial.println("Clear");
     draw_clear(LOW);
     return;
-  }
-  if (command == GPU_CMD_DRAWPOINT) { // draw point
+  } else if (command == GPU_CMD_DRAWPOINT) { // draw point
     Serial.print("Draw point: ");
 
     byte x = com_parseByte(buff, 4, 4);
@@ -189,6 +188,8 @@ void gpu_exec_command(bool *buff) {
     }
 
     return;
+  } else if (command == GPU_CMD_SWAPBUFF) {
+    draw_swap();
   }
 
   Serial.print("INVALID COMMAND");
@@ -218,18 +219,6 @@ void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {
   int h = tex->Height;
   int i = 0;
 
-  for (int ih = 0; ih < h; ih++) {
-    for (int iw = 0; iw < w; iw++) {
-      draw_point(x + iw, y + ih, tex->Data[i]);
-      i++;
-    }
-  }
-}
-
-void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {
-  int w = tex->Width;
-  int h = tex->Height;
-  int i = 0;
   for (int ih = 0; ih < h; ih++) {
     for (int iw = 0; iw < w; iw++) {
       draw_point(x + iw, y + ih, tex->Data[i]);
