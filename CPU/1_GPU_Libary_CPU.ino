@@ -74,8 +74,8 @@ void gpu_uploadTex(struct GTexture *tex) {
 #endif
 
   com_sendCmd(GPU_CMD_UPLOADTEX);
-  com_sendByte(w, 3);
-  com_sendByte(h, 3);
+  com_sendByte(w, 4);
+  com_sendByte(h, 4);
   for (int i = 0; i < tex->Width * tex->Height; i += 8) {
     com_sendCmd(GPU_CMD_DATA8);
     com_sendBit(tex->Data[i]);
@@ -93,12 +93,12 @@ void gpu_clear() { com_sendCmd(GPU_CMD_DRAWCLEAR); }
 
 void gpu_drawTex(byte x, byte y) {
   com_sendCmd(GPU_CMD_DRAWTEX);
-  com_sendByte(x, 3);
-  com_sendByte(y, 3);
+  com_sendByte(x, 4);
+  com_sendByte(y, 4);
 }
 
 void gpu_drawPoint(byte x, byte y) {
   com_sendCmd(GPU_CMD_DRAWPOINT);
-  com_sendByte(x, 3);
-  com_sendByte(y, 3);
+  com_sendByte(x, 4);
+  com_sendByte(y, 4);
 }
