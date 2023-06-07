@@ -191,7 +191,7 @@ void gpu_exec_command(bool *buff) {
     return;
   }
 
-  Serial.print("INVALID COMMAND ");
+  Serial.print("INVALID COMMAND");
   Serial.println(command);
 }
 
@@ -210,6 +210,19 @@ void gpu_print_texture(struct GTexture *tex) {
       i++;
     }
     Serial.println();
+  }
+}
+
+void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {
+  int w = tex->Width;
+  int h = tex->Height;
+  int i = 0;
+
+  for (int ih = 0; ih < h; ih++) {
+    for (int iw = 0; iw < w; iw++) {
+      draw_point(x + iw, y + ih, tex->Data[i]);
+      i++;
+    }
   }
 }
 

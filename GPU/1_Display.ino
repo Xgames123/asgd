@@ -101,6 +101,7 @@ void fast_write() {
       for (int x = 0; x < displayW; x++) {
         bool pixel = HIGH;
 
+        draw_writePixel(lastX, lastY, LOW);
         draw_writePixel(x, y, pixel);
 
         lastX = x;

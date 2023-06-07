@@ -1,7 +1,3 @@
-#include <1_Display.ino>
-#include <2_GPU_Library.ino>
-#include <Arduino.h>
-
 // #define LOG_BUFSIZE
 
 void setup() {
