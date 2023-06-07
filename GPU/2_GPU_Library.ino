@@ -174,7 +174,7 @@ void gpu_exec_command(bool *buff) {
       Texture_index++;
       if (Texture_index >= size) {
         Serial.println("Texture upload done");
-        print_texture(DownloadTexture);
+        gpu_print_texture(DownloadTexture);
 
         if (ActiveTexture != 0) {
           gpu_free_texture(ActiveTexture);
