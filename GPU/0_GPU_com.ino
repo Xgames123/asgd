@@ -60,12 +60,6 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
       Serial.print(" cmd id: ");
       Serial.println(CommandId);
 #endif
-      if (CommandSize == 4) {
-        com_reset();
-        return true;
-      }
-
-      return false;
     }
 
     if (CommandId != 0 && BufferIndex >= CommandSize) {
