@@ -51,7 +51,9 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
       CommandId = com_parseByte(buff, 0, 4);
       CommandSize = cmdSizeDict[CommandId] + 4;
 #ifdef LOG_COMMANDID
-      Serial.print("Got command id: ");
+      Serial.print("cmd size: ");
+      Serial.print(CommandSize);
+      Serial.print(" cmd id: ");
       Serial.println(CommandId);
 #endif
       return false;
