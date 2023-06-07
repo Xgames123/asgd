@@ -1,3 +1,4 @@
+#define LOG_EXECCOMMAND
 // commands
 // 1 start uploading texture(4b w, 4b h)
 // 2 draw texture(4b x, 4b y)
@@ -78,6 +79,11 @@ int gpu_buffer_size() { return Index; }
 void gpu_exec_command(bool *buff) {
 
   byte command = com_parseByte(buff, 0, 4);
+
+#ifdef LOG_EXECCOMMAND
+  Serial.print("executing command id: ");
+  Serial.println(command);
+#endif
 
   if (command == GPU_CMD_INIT) // init
   {
