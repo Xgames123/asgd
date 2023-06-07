@@ -31,7 +31,7 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     last_bit_time = time;
 
     bool bit = digitalRead(ComPin);
-#if LOG_CLOCK_DATA
+#ifdef LOG_CLOCK_DATA
     Serial.println(bit);
 #endif
 
