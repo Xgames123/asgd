@@ -18,6 +18,11 @@ void com_init() {
   // attachInterrupt(digitalPinToInterrupt(ClockPin), onClock, CHANGE);
 }
 
+void com_reset() {
+  CommandId = 0;
+  BufferIndex = 0;
+}
+
 bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
   bool clock = digitalRead(ClockPin);
   if (clock != ClockValue) {
@@ -42,8 +47,7 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     if (BufferIndex >= max_size) {
       Serial.println("TOO MUCH DAT IN COMMAND BUFFER (NU HEB JE EEN GROOT "
                      "PROBLEEM WANT DIT MAG NOOIT GEBEUREN)");
-      BufferIndex = 0;
-      CommandId = 0;
+      com_reset();
       return false;
     }
 
@@ -56,12 +60,16 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
       Serial.print(" cmd id: ");
       Serial.println(CommandId);
 #endif
+      if (CommandSize == 4) {
+        com_reset();
+        return true;
+      }
+
       return false;
     }
 
     if (CommandId != 0 && BufferIndex >= CommandSize) {
-      CommandId = 0;
-      BufferIndex = 0;
+      com_reset();
       return true;
     }
   }
