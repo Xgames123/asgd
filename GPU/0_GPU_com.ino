@@ -1,6 +1,5 @@
 // #define LOG_CLOCK
-// #define LOG_CLOCK_DATA
-#define LOG_WAITING_ON_BIT
+#define LOG_CLOCK_DATA
 const int ComPin = A5;
 const int ClockPin = 2;
 
@@ -32,6 +31,10 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     last_bit_time = time;
 
     bool bit = digitalRead(ComPin);
+#if LOG_CLOCK_DATA
+    Serial.println(bit);
+#endif
+
     buff[BufferIndex] = bit;
     BufferIndex++;
     if (BufferIndex >= max_size) {
