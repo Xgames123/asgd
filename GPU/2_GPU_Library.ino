@@ -197,6 +197,7 @@ void gpu_exec_command(bool *buff) {
   }
   else if (command == GPU_CMD_SWAPCLEAR) {
     draw_swap();
+    draw_clear();
     return;
   }
 
