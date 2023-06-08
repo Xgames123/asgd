@@ -162,20 +162,17 @@ void on_input(){
   Serial.print(DISx);
   Serial.print("  y: ");
   Serial.println(DISy);
-  gpu_clear();
-  gpu_drawTex(DISx, DISy);
-  gpu_swap();
+  gpu_drawTex(DISx-1, DISy-1);
+  gpu_swapclear();
 }
 
 void testLeds(){
-  gpu_clear();
   for (int x=0; x < 8; x++)
   {
     for (int y=0; y < 8; y++)
     {
-      gpu_clear();
       gpu_drawPoint(x, y);
-      gpu_swap();
+      gpu_swapclear();
     } 
   }
   
