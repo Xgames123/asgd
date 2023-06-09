@@ -15,8 +15,15 @@ int lastLoggedBufferSize = -1;
 
 unsigned long last_gpu_read_time = millis();
 
+
 void loop() {
 
+
+  if(!gpu_isInit())
+  {
+      draw_point(0, 0, (millis()/100) % 2 == 0);
+    draw_swap();  
+  }  
   draw_writeBuff();
 
 #ifdef LOG_BUFSIZE

@@ -10,6 +10,7 @@
 #define GPU_CMD_SWAP 6
 #define GPU_CMD_INIT 7
 #define GPU_CMD_SWAPCLEAR 8
+#define GPU_CMD_DRAWTEX8 9
 
 const int ResetGpu_pin = 4;
 
@@ -32,12 +33,12 @@ void gpu_init() {
   digitalWrite(ResetGpu_pin, LOW);
   delay(10);
   digitalWrite(ResetGpu_pin, HIGH);
-  delay(5000);
+  delay(4000);
 #ifdef LOG_GPUINIT
   Serial.println("Sending gpu init command...");
 #endif
   com_sendCmd(GPU_CMD_INIT);
-  delay(1000);
+  delay(100);
 #ifdef LOG_GPUINIT
   Serial.println("Gpu should be initialized by now");
 #endif
@@ -102,6 +103,15 @@ void gpu_drawTex(byte x, byte y) {
   com_sendCmd(GPU_CMD_DRAWTEX);
   com_sendByte(x, 4);
   com_sendByte(y, 4);
+}
+void gpu_drawTex8(int x, int y)
+{
+  byte bx = (x+128);
+  byte by = (y+128);
+  
+  com_sendCmd(GPU_CMD_DRAWTEX8);
+  com_sendByte(bx, 8);
+  com_sendByte(by, 8);
 }
 
 void gpu_drawPoint(byte x, byte y) {

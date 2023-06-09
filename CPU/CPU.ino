@@ -162,7 +162,7 @@ void on_input(){
   Serial.print(DISx);
   Serial.print("  y: ");
   Serial.println(DISy);
-  gpu_drawTex(DISx-1, DISy-1);
+  gpu_drawTex8(DISx-1, DISy-1);
   gpu_swapclear();
 }
 

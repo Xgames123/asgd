@@ -1,25 +1,27 @@
 //#define LOG_EXECCOMMAND
 
 // commands
-// 1 start uploading texture(4b w, 4b h)
-// 2 draw texture(4b x, 4b y)
+// 1 start uploading texture(u4b w, u4b h)
+// 2 draw texture(u4b x, u4b y)
 // 3 clear()
-// 4 draw point(4b x, 4b y)
-// 5 upload data 8bits (8b data)
+// 4 draw point(u4b x, u4b y)
+// 5 upload data 8bits (u8b data)
 // 6 swap
 // 7 init
 // 8 swap and clear
+// 9 draw texture (8b x, 8b y)
 
 #define GPU_CMD_UPLOADTEX 1
-#define GPU_CMD_DRAWTEX 2
+#define GPU_CMD_DRAWTEX4 2
 #define GPU_CMD_DRAWCLEAR 3
-#define GPU_CMD_DRAWPOINT 4
+#define GPU_CMD_DRAWPOINT4 4
 #define GPU_CMD_DATA8 5
 #define GPU_CMD_SWAP 6
 #define GPU_CMD_INIT 7
 #define GPU_CMD_SWAPCLEAR 8
+#define GPU_CMD_DRAWTEX8 9
 
-int CommandSizeDict[] = {-1, 8, 8, 0, 8, 8, 0, 0, 0};
+int CommandSizeDict[] = { -1, 8, 8, 0, 8, 8, 0, 0, 0, 16};
 
 struct GTexture {
 
@@ -43,6 +45,10 @@ byte current_command = 0;
 void gpu_init() {
   com_init();
   Serial.println("gpu started");
+}
+bool gpu_isInit()
+{
+  return Initialized;
 }
 
 void gpu_update() {
@@ -77,7 +83,9 @@ byte peekByte(int start, int len) {
   return output;
 }
 
-int gpu_buffer_size() { return Index; }
+int gpu_buffer_size() {
+  return Index;
+}
 
 void gpu_exec_command(bool *buff) {
 
@@ -127,7 +135,7 @@ void gpu_exec_command(bool *buff) {
     Texture_index = 0;
     return;
   }
-  if (command == GPU_CMD_DRAWTEX) // draw texture
+  if (command == GPU_CMD_DRAWTEX4) // draw texture
   {
     Serial.println("Draw Texture");
     if (ActiveTexture == 0) {
@@ -150,7 +158,7 @@ void gpu_exec_command(bool *buff) {
     Serial.println("Clear");
     draw_clear(LOW);
     return;
-  } else if (command == GPU_CMD_DRAWPOINT) { // draw point
+  } else if (command == GPU_CMD_DRAWPOINT4) { // draw point
     Serial.print("Draw point: ");
 
     byte x = com_parseByte(buff, 4, 4);
@@ -197,8 +205,31 @@ void gpu_exec_command(bool *buff) {
   }
   else if (command == GPU_CMD_SWAPCLEAR) {
     draw_swap();
-    draw_clear();
+    draw_clear(LOW);
     return;
+  } else if ( command == GPU_CMD_DRAWTEX8 ) {
+
+    Serial.println("Draw Texture 8bit");
+    if (ActiveTexture == 0) {
+      Serial.println("NO TEXTURE UPLOAD");
+      return;
+    }
+    int x = com_parseByte(buff, 4, 8);
+    int y = com_parseByte(buff, 12, 8);
+    //int  00000000 00000000 00000000 00000000
+    //byte 00000000
+    //     ^ sign bit
+     x-=128;
+     y-=128;
+    
+    Serial.print("Coords: ");
+    Serial.print(x);
+    Serial.print(" ");
+    Serial.println(y);
+
+    gpu_draw_texture(ActiveTexture, x, y);
+    return;
+
   }
 
   Serial.print("INVALID COMMAND");
@@ -223,7 +254,7 @@ void gpu_print_texture(struct GTexture *tex) {
   }
 }
 
-void gpu_draw_texture(struct GTexture *tex, byte x, byte y) {
+void gpu_draw_texture(struct GTexture *tex, int x, int y) {
   int w = tex->Width;
   int h = tex->Height;
   int i = 0;
