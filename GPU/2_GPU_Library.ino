@@ -21,7 +21,17 @@
 #define GPU_CMD_SWAPCLEAR 8
 #define GPU_CMD_DRAWTEX8 9
 
-int CommandSizeDict[] = { -1, 8, 8, 0, 8, 8, 0, 0, 0, 16};
+int CommandSizeDict[] = { -1,
+                          12, //GPU_CMD_UPLOADTEX
+                          8, //GPU_CMD_DRAWTEX4
+                          0, //GPU_CMD_DRAWCLEAR
+                          8, //GPU_CMD_DRAWPOINT4
+                          8, //GPU_CMD_DATA8
+                          0, //GPU_CMD_SWAP
+                          0, //GPU_CMD_INIT
+                          0, //GPU_CMD_SWAPCLEAR
+                          16 //GPU_CMD_DRAWTEX8
+                        };
 
 struct GTexture {
 
@@ -33,7 +43,8 @@ struct GTexture {
 
 bool Initialized = false;
 
-GTexture *ActiveTexture = 0;
+GTexture* TextureSlots[14];
+
 GTexture *DownloadTexture = 0;
 int Texture_index = 0;
 
@@ -121,16 +132,20 @@ void gpu_exec_command(bool *buff) {
       return;
     }
 
-    byte w = com_parseByte(buff, 4, 4);
-    byte h = com_parseByte(buff, 8, 4);
+    byte slot = com_parseByte(buff, 4, 4);
+    byte w = com_parseByte(buff, 8, 4);
+    byte h = com_parseByte(buff, 12, 4);
 
     Serial.println("Started downloading texture ");
+   
     GTexture *tex = gpu_create_texture(w, h);
 
     Serial.print(tex->Width);
     Serial.print("x");
-    Serial.println(tex->Height);
-
+    Serial.print(tex->Height);
+    Serial.print(" slot: ")
+    Serial.println(slot);
+    
     DownloadTexture = tex;
     Texture_index = 0;
     return;
@@ -219,9 +234,9 @@ void gpu_exec_command(bool *buff) {
     //int  00000000 00000000 00000000 00000000
     //byte 00000000
     //     ^ sign bit
-     x-=128;
-     y-=128;
-    
+    x -= 128;
+    y -= 128;
+
     Serial.print("Coords: ");
     Serial.print(x);
     Serial.print(" ");

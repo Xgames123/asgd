@@ -1,7 +1,7 @@
 player
-.x.
+x.x
 xxx
-.x.
+x.x
 
 
 #level_1
