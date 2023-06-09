@@ -1,4 +1,9 @@
 player
+.x.
+xxx
+.x.
+
+player2
 x.x
 xxx
 x.x

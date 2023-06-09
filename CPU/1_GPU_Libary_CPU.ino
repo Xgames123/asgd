@@ -62,7 +62,7 @@ struct GTexture *gpu_createTex(byte w, byte h) {
   return tex;
 }
 
-void gpu_uploadTex(struct GTexture *tex) {
+void gpu_uploadTex(byte slot, struct GTexture *tex) {
   byte w = tex->Width;
   byte h = tex->Height;
 
@@ -76,6 +76,7 @@ void gpu_uploadTex(struct GTexture *tex) {
 #endif
 
   com_sendCmd(GPU_CMD_UPLOADTEX);
+  com_sendByte(slot, 4);
   com_sendByte(w, 4);
   com_sendByte(h, 4);
   for (int i = 0; i < tex->Width * tex->Height; i += 8) {
@@ -99,17 +100,19 @@ void gpu_swapclear(){
   com_sendCmd(GPU_CMD_SWAPCLEAR);
 }
 
-void gpu_drawTex(byte x, byte y) {
+void gpu_drawTex(byte slot, byte x, byte y) {
   com_sendCmd(GPU_CMD_DRAWTEX);
+  com_sendByte(slot, 4);
   com_sendByte(x, 4);
   com_sendByte(y, 4);
 }
-void gpu_drawTex8(int x, int y)
+void gpu_drawTex8(byte slot, int x, int y)
 {
   byte bx = (x+128);
   byte by = (y+128);
   
   com_sendCmd(GPU_CMD_DRAWTEX8);
+  com_sendByte(slot, 4);
   com_sendByte(bx, 8);
   com_sendByte(by, 8);
 }

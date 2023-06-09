@@ -43,7 +43,7 @@ bool com_update(bool *buff, int max_size, int *cmdSizeDict) {
     ClockValue = clock;
 
     unsigned long time = millis();
-    if (last_bit_time != -1 && (time - last_bit_time) > 200 &&
+    if (last_bit_time != -1 && (time - last_bit_time) > 600 &&
         BufferIndex != 0) {
       BufferIndex = 0;
       CommandId = 0;

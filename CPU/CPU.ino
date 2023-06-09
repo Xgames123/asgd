@@ -17,8 +17,9 @@ void setup() {
  
   gpu_init();
 
-  struct GTexture* tex = Tex_player();
-  gpu_uploadTex(tex);
+  gpu_uploadTex(0, Tex_player());
+  gpu_uploadTex(1, Tex_player2());
+  
 }
 
 void gpu_test1()
@@ -27,7 +28,7 @@ void gpu_test1()
   Serial.println("Uploading player texture");
 #endif
   struct GTexture* tex = Tex_player();
-  gpu_uploadTex(tex);
+  gpu_uploadTex(0, tex);
 
   #ifdef LOG_TEST1
   Serial.println("Clearing screen");
@@ -43,7 +44,7 @@ void gpu_test1()
 #ifdef LOG_TEST1
   Serial.println("Drawing texture at x: 1 y: 1");
   #endif
-  gpu_drawTex(1, 1);
+  gpu_drawTex(0, 1, 1);
   on_input();
   
 }
@@ -162,7 +163,7 @@ void on_input(){
   Serial.print(DISx);
   Serial.print("  y: ");
   Serial.println(DISy);
-  gpu_drawTex8(DISx-1, DISy-1);
+  gpu_drawTex8(0, DISx-1, DISy-1);
   gpu_swapclear();
 }
 

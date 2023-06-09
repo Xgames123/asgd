@@ -23,14 +23,14 @@
 
 int CommandSizeDict[] = { -1,
                           12, //GPU_CMD_UPLOADTEX
-                          8, //GPU_CMD_DRAWTEX4
+                          12, //GPU_CMD_DRAWTEX4
                           0, //GPU_CMD_DRAWCLEAR
                           8, //GPU_CMD_DRAWPOINT4
                           8, //GPU_CMD_DATA8
                           0, //GPU_CMD_SWAP
                           0, //GPU_CMD_INIT
                           0, //GPU_CMD_SWAPCLEAR
-                          16 //GPU_CMD_DRAWTEX8
+                          20 //GPU_CMD_DRAWTEX8
                         };
 
 struct GTexture {
@@ -47,6 +47,7 @@ GTexture* TextureSlots[14];
 
 GTexture *DownloadTexture = 0;
 int Texture_index = 0;
+int Texture_slot = -1;
 
 bool CmdBuffer[200];
 int Index = 0;
@@ -143,9 +144,10 @@ void gpu_exec_command(bool *buff) {
     Serial.print(tex->Width);
     Serial.print("x");
     Serial.print(tex->Height);
-    Serial.print(" slot: ")
+    Serial.print(" slot: ");
     Serial.println(slot);
-    
+
+    Texture_slot = slot;
     DownloadTexture = tex;
     Texture_index = 0;
     return;
@@ -153,19 +155,24 @@ void gpu_exec_command(bool *buff) {
   if (command == GPU_CMD_DRAWTEX4) // draw texture
   {
     Serial.println("Draw Texture");
-    if (ActiveTexture == 0) {
+    
+    byte slot = com_parseByte(buff, 4, 4);
+    byte x = com_parseByte(buff, 8, 4);
+    byte y = com_parseByte(buff, 12, 4);
+
+    if (TextureSlots[slot] == 0) {
       Serial.println("NO TEXTURE UPLOAD");
       return;
     }
-    byte x = com_parseByte(buff, 4, 4);
-    byte y = com_parseByte(buff, 8, 4);
-
+    
     Serial.print("Coords: ");
     Serial.print(x);
     Serial.print(" ");
-    Serial.println(y);
+    Serial.print(y);
+    Serial.print("slot: ");
+    Serial.println(slot);
 
-    gpu_draw_texture(ActiveTexture, x, y);
+    gpu_draw_texture(TextureSlots[slot], x, y);
     return;
   }
   if (command == GPU_CMD_DRAWCLEAR) // clear
@@ -202,11 +209,11 @@ void gpu_exec_command(bool *buff) {
         Serial.println("Texture upload done");
         gpu_print_texture(DownloadTexture);
 
-        if (ActiveTexture != 0) {
-          gpu_free_texture(ActiveTexture);
-          ActiveTexture = 0;
+        if (TextureSlots[Texture_slot] != 0) {
+          gpu_free_texture(TextureSlots[Texture_slot]);
+          TextureSlots[Texture_slot] = 0;
         }
-        ActiveTexture = DownloadTexture;
+        TextureSlots[Texture_slot] = DownloadTexture;
         DownloadTexture = 0;
         return;
       }
@@ -225,24 +232,27 @@ void gpu_exec_command(bool *buff) {
   } else if ( command == GPU_CMD_DRAWTEX8 ) {
 
     Serial.println("Draw Texture 8bit");
-    if (ActiveTexture == 0) {
-      Serial.println("NO TEXTURE UPLOAD");
-      return;
-    }
-    int x = com_parseByte(buff, 4, 8);
-    int y = com_parseByte(buff, 12, 8);
+   
+    byte slot = com_parseByte(buff, 4, 4);
+    int x = com_parseByte(buff, 8, 8);
+    int y = com_parseByte(buff, 16, 8);
     //int  00000000 00000000 00000000 00000000
     //byte 00000000
     //     ^ sign bit
     x -= 128;
     y -= 128;
 
+    if (TextureSlots[slot] == 0) {
+      Serial.println("NO TEXTURE UPLOAD");
+      return;
+    }
+
     Serial.print("Coords: ");
     Serial.print(x);
     Serial.print(" ");
     Serial.println(y);
 
-    gpu_draw_texture(ActiveTexture, x, y);
+    gpu_draw_texture(TextureSlots[slot], x, y);
     return;
 
   }
